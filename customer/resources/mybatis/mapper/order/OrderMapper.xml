@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunshine.mobileapp.api.order.entity.Order" >
+ <resultMap id="BaseResultMap" type="com.sunshine.mobileapp.api.order.entity.Order" >
+  	<id column="ID" property="id" jdbcType="VARCHAR" />
+  	<result column="ORDER_NO" property="orderNo" />
+	<result column="SERVICE_ID" property="serviceId" />
+	<result column="SERVICE_NAME" property="serviceName"/>
+	<result column="DOCTOR_ID" property="doctorId" />
+	<result column="DOCTOR_NAME" property="doctorName" />
+	<result column="PROVINCE_CODE" property="provinceCode" />
+	<result column="PROVINCE_NAME" property="provinceName" />
+	<result column="CITY_CODE" property="cityCode" />
+	<result column="CITY_NAME" property="cityName" />
+	<result column="AREA_CODE" property="areaCode" />
+	<result column="AREA_NAME" property="areaName" />
+	<result column="USER_ID" property="userId" />
+	<result column="USER_NAME" property="userName" />
+	<result column="PARENT_ORDER" property="parentOrder" />
+	<result column="APPOINTMENT_TIME" property="appointmentTime" />
+	<result column="APPOINTMENT_TIME_STR" property="appointmentTimeStr" />
+	<result column="BUY_TIME" property="buyTime" />
+	<result column="START_TIME" property="startTime" />
+	<result column="END_TIME" property="endTime" />
+	<result column="ACTUAL_START_TIME" property="actualStartTime" />
+	<result column="ACTUAL_END_TIME" property="actualEndTime" />
+	<result column="PRICE" property="price" />
+	<result column="ORDER_FEE" property="orderFee" />
+	<result column="ORDER_DESC" property="orderDesc" />
+	<result column="IMAGE_URLS" property="imageUrls" />
+	<result column="DOCTOR_PHONE" property="doctorPhone" />
+	<result column="USER_PHONE" property="userPhone" />
+	<result column="EXPIRE_DATE" property="expireDate" />
+	<result column="PLATFORM_CODE" property="platformCode" />
+	<result column="ORDER_STATUS" property="orderStatus" />
+	<result column="CP" property="cp" />
+	<result column="CT" property="ct" />
+	<result column="EP" property="ep" />
+	<result column="ET" property="et" />
+</resultMap>
+  <sql id="Base_Column_List" >
+    ID,ORDER_NO,SERVICE_ID,DOCTOR_ID,DOCTOR_NAME,PROVINCE_CODE,PROVINCE_NAME,CITY_CODE,CITY_NAME,
+    AREA_CODE,AREA_NAME,USER_ID,USER_NAME,PARENT_ORDER,APPOINTMENT_TIME,APPOINTMENT_TIME_STR,BUY_TIME,START_TIME,
+    END_TIME,ACTUAL_START_TIME,ACTUAL_END_TIME,PRICE,ORDER_FEE,ORDER_DESC,IMAGE_URLS,DOCTOR_PHONE,USER_PHONE,EXPIRE_DATE,
+    PLATFORM_CODE,ORDER_STATUS,CP,CT,EP,ET
+  </sql>
+  
+  <!-- 不包含订单详细消息 ，img -->
+  
+  <sql id="Necessary_Column_List">
+    o.ID,o.ORDER_NO,o.SERVICE_ID,o.DOCTOR_ID,o.DOCTOR_NAME,o.PROVINCE_CODE,o.PROVINCE_NAME,o.CITY_CODE,o.CITY_NAME,
+    o.AREA_CODE,o.AREA_NAME,o.USER_ID,o.USER_NAME,o.PARENT_ORDER,o.APPOINTMENT_TIME,o.APPOINTMENT_TIME_STR,o.BUY_TIME,o.start_time,
+    o.end_time,o.PRICE,o.ORDER_FEE,o.ORDER_DESC,o.IMAGE_URLS,o.DOCTOR_PHONE,o.USER_PHONE,o.EXPIRE_DATE,
+    o.PLATFORM_CODE,o.ORDER_STATUS,o.CP,o.CT,o.EP,o.ET,s.SERVICE_NAME
+  </sql>
+ 
+  
+  <!--  
+  	    select 
+    <include refid="Base_Column_List" />
+    from BIZ_COUNSELING_ORDER
+    where ID = #{id}
+   -->
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  o.*, s.SERVICE_NAME from  BIZ_COUNSELING_ORDER o  
+    	left join SYS_SERVICE_INFO s on o.SERVICE_ID=s.Id 
+    	where o.id =#{id}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    delete from BIZ_COUNSELING_ORDER
+    where ID = #{id}
+  </delete> 
+  
+   <insert id="insert" parameterType="com.sunshine.mobileapp.api.order.entity.Order" >
+    insert into BIZ_COUNSELING_ORDER (<include refid="Base_Column_List" />)
+     values ( #{id},#{orderNo},#{serviceId},#{doctorId},#{doctorName},#{provinceCode},#{provinceName},#{cityCode},
+     #{cityName},#{areaCode},#{areaName},#{userId},#{userName},#{parentOrder},#{appointmentTime},#{appointmentTimeStr},
+     #{buyTime},#{startTime},#{endTime},#{actualStartTime},#{actualEndTime},#{price},#{orderFee},#{orderDesc},#{imageUrls},#{doctorPhone},
+     #{userPhone},#{expireDate},#{platformCode},#{orderStatus},#{cp},#{ct},#{ep},#{et}
+     )
+   </insert>
+   
+    <update id="update" parameterType="com.sunshine.mobileapp.api.order.entity.Order" >
+    	update BIZ_COUNSELING_ORDER
+    	<set >
+	    	 <if test="serviceId !=null">
+	  			 SERVICE_ID = #{serviceId},
+			</if>
+			<if test="doctorId !=null">
+			   DOCTOR_ID = #{doctorId},
+			</if>
+			<if test="doctorName !=null">
+			   DOCTOR_NAME = #{doctorName},
+			</if>
+			<if test="provinceCode !=null">
+			   PROVINCE_CODE = #{provinceCode},
+			</if>
+			<if test="provinceName !=null">
+			   PROVINCE_NAME = #{provinceName},
+			</if>
+			<if test="cityCode !=null">
+			   CITY_CODE = #{cityCode},
+			</if>
+			<if test="cityName !=null">
+			   CITY_NAME = #{cityName},
+			</if>
+			<if test="areaCode !=null">
+			   AREA_CODE = #{areaCode},
+			</if>
+			<if test="areaName !=null">
+			   AREA_NAME = #{areaName},
+			</if>
+			<if test="userId !=null">
+			   USER_ID = #{userId},
+			</if>
+			<if test="userName !=null">
+			   USER_NAME = #{userName},
+			</if>
+			<if test="parentOrder !=null">
+			   PARENT_ORDER = #{parentOrder},
+			</if>
+			<if test="appointmentTime !=null">
+			   APPOINTMENT_TIME = #{appointmentTime},
+			</if>
+			<if test="buyTime !=null">
+			   BUY_TIME = #{buyTime},
+			</if>
+			<if test="startTime !=null">
+			   START_TIME = #{startTime},
+			</if>
+			<if test="endTime !=null">
+			   END_TIME = #{endTime},
+			</if>
+			<if test="actualStartTime !=null">
+			   ACTUAL_START_TIME = #{actualStartTime},
+			</if>
+			<if test="actualEndTime !=null">
+			   ACTUAL_END_TIME = #{actualEndTime},
+			</if>
+			<if test="price !=null">
+			   PRICE = #{price},
+			</if>
+			<if test="orderFee !=null">
+			   ORDER_FEE = #{orderFee},
+			</if>
+			<if test="orderDesc !=null">
+			   ORDER_DESC = #{orderDesc},
+			</if>
+			<if test="imageUrls !=null">
+			   IMAGE_URLS = #{imageUrls},
+			</if>
+			<if test="doctorPhone !=null">
+			   DOCTOR_PHONE = #{doctorPhone},
+			</if>
+			<if test="userPhone !=null">
+			   USER_PHONE = #{userPhone},
+			</if>
+			<if test="expireDate !=null">
+			   EXPIRE_DATE = #{expireDate},
+			</if>
+			<if test="platformCode !=null">
+			   PLATFORM_CODE = #{platformCode},
+			</if>
+			<if test="orderStatus !=null">
+			   ORDER_STATUS = #{orderStatus},
+			</if>
+			<if test="cp !=null">
+			   CP = #{cp},
+			</if>
+			<if test="ct !=null">
+			   CT = #{ct},
+			</if>
+			<if test="ep !=null">
+			   EP = #{ep},
+			</if>
+			<if test="et !=null">
+			   ET = #{et},
+			</if>
+		</set>
+		 where ID = #{id}
+    </update>
+    
+      <update id="updateByParams" parameterType="map">
+    	 update BIZ_COUNSELING_ORDER
+    	 <set >
+	    	 <if test="serviceId !=null">
+	  			 SERVICE_ID = #{serviceId},
+			</if>
+			<if test="doctorId !=null">
+			   DOCTOR_ID = #{doctorId},
+			</if>
+			<if test="doctorName !=null">
+			   DOCTOR_NAME = #{doctorName},
+			</if>
+			<if test="provinceCode !=null">
+			   PROVINCE_CODE = #{provinceCode},
+			</if>
+			<if test="provinceName !=null">
+			   PROVINCE_NAME = #{provinceName},
+			</if>
+			<if test="cityCode !=null">
+			   CITY_CODE = #{cityCode},
+			</if>
+			<if test="cityName !=null">
+			   CITY_NAME = #{cityName},
+			</if>
+			<if test="areaCode !=null">
+			   AREA_CODE = #{areaCode},
+			</if>
+			<if test="areaName !=null">
+			   AREA_NAME = #{areaName},
+			</if>
+			<if test="userId !=null">
+			   USER_ID = #{userId},
+			</if>
+			<if test="userName !=null">
+			   USER_NAME = #{userName},
+			</if>
+			<if test="parentOrder !=null">
+			   PARENT_ORDER = #{parentOrder},
+			</if>
+			<if test="appointmentTime !=null">
+			   APPOINTMENT_TIME = #{appointmentTime},
+			</if>
+			<if test="buyTime !=null">
+			   BUY_TIME = #{buyTime},
+			</if>
+			<if test="startTime !=null">
+			   START_TIME = #{startTime},
+			</if>
+			<if test="endTime !=null">
+			   END_TIME = #{endTime},
+			</if>
+			<if test="actualStartTime !=null">
+			   ACTUAL_START_TIME = #{actualStartTime},
+			</if>
+			<if test="actualEndTime !=null">
+			   ACTUAL_END_TIME = #{actualEndTime},
+			</if>
+			<if test="price !=null">
+			   PRICE = #{price},
+			</if>
+			<if test="orderFee !=null">
+			   ORDER_FEE = #{orderFee},
+			</if>
+			<if test="orderDesc !=null">
+			   ORDER_DESC = #{orderDesc},
+			</if>
+			<if test="imageUrls !=null">
+			   IMAGE_URLS = #{imageUrls},
+			</if>
+			<if test="doctorPhone !=null">
+			   DOCTOR_PHONE = #{doctorPhone},
+			</if>
+			<if test="userPhone !=null">
+			   USER_PHONE = #{userPhone},
+			</if>
+			<if test="expireDate !=null">
+			   EXPIRE_DATE = #{expireDate},
+			</if>
+			<if test="platformCode !=null">
+			   PLATFORM_CODE = #{platformCode},
+			</if>
+			<if test="orderStatus !=null">
+			   ORDER_STATUS = #{orderStatus},
+			</if>
+			<if test="cp !=null">
+			   CP = #{cp},
+			</if>
+			<if test="ct !=null">
+			   CT = #{ct},
+			</if>
+			<if test="ep !=null">
+			   EP = #{ep},
+			</if>
+			<if test="et !=null">
+			   ET = #{et},
+			</if>
+		</set>
+		 where ID = #{id} 
+    </update>
+    
+    <update id="updateToTimeOut" parameterType="java.lang.String">
+    	 update BIZ_COUNSELING_ORDER set ORDER_STATUS = 10
+		 where ID = #{id} AND ORDER_STATUS = 1
+    </update>
+    
+     <select id="findPossibleTimeoutOrder" parameterType="Map" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM BIZ_COUNSELING_ORDER 
+		WHERE ORDER_STATUS = 1 AND START_TIME &lt; #{startTime} AND APPOINTMENT_TIME &lt; now() AND SERVICE_ID = #{serviceId} 
+    </select>
+   
+  <select id="findListByPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT <include refid="Necessary_Column_List" />
+        FROM BIZ_COUNSELING_ORDER o left join  SYS_SERVICE_INFO s on o.SERVICE_ID=s.Id  
+        <where>
+           	<if test="provinceCode !=null and provinceCode !=''" >
+    			AND o.PROVINCE_CODE = #{provinceCode}
+			</if>
+			<if test="cityCode !=null and cityCode !=''" >
+			    AND  o.CITY_CODE = #{cityCode}
+			</if>
+			<if test="serviceId !=null and serviceId !=''" >
+			    AND  o.SERVICE_ID = #{serviceId}
+			</if>
+			<if test="platformCode !=null and platformCode !=''" >
+			    AND  o.PLATFORM_CODE = #{platformCode}
+			</if>
+			<if test="orderStatus !=null and orderStatus !=''" >
+			    AND  o.ORDER_STATUS = #{orderStatus}
+			</if>
+			<!-- 待服务的消息 -->
+			<if test="serviceOrder !=null and serviceOrder !=''">
+				AND  o.ORDER_STATUS in (2,3)
+			</if>
+			<!-- 已结束的消息 -->
+			<if  test="overOrder !=null and overOrder !=''">
+				AND  o.ORDER_STATUS >3
+			</if>
+			
+			<!-- <if test="unTransQuery !=null and unTransQuery !=''">
+				AND o.APPOINTMENT_TIME >= now()
+			</if> -->
+			
+			<if test="userId !=null and userId != ''">
+			 	AND  o.USER_Id = #{userId}
+			</if>
+			
+			<if test="userName !=null and userName !=''" >
+			    AND  o.USER_NAME = #{userName}
+			</if>
+			<if test="userPhone !=null and userPhone !=''" >
+			    AND  o.USER_PHONE = #{userPhone}
+			</if>
+			<if test="doctorName !=null and doctorName !=''" >
+			    AND  o.DOCTOR_NAME = #{doctorName}
+			</if>
+			<if test="doctorPhone !=null and doctorPhone !=''" >
+			    AND  o.DOCTOR_PHONE = #{doctorPhone}
+			</if> 
+			<if test="doctorId !=null and doctorId !=''" >
+			    AND  o.DOCTOR_ID = #{doctorId}
+			</if> 
+			<if test="orderNo !=null and orderNo !=''" >
+			    AND  o.ORDER_NO = #{orderNo}
+			</if>
+			<if test="id !=null and id !=''" >
+			    AND  o.ID = #{id}
+			</if>
+        </where>
+         order by o.ET desc
+        
+    </select>
+    
+    <select id="findListByParams" parameterType="Map" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM BIZ_COUNSELING_ORDER o 
+        <where>
+           	<if test="provinceCode !=null and provinceCode !=''" >
+    			AND o.PROVINCE_CODE = #{provinceCode}
+			</if>
+			<if test="cityCode !=null and cityCode !=''" >
+			    AND  o.CITY_CODE = #{cityCode}
+			</if>
+			<if test="serviceId !=null and serviceId !=''" >
+			    AND  o.SERVICE_ID = #{serviceId}
+			</if>
+			<if test="platformCode !=null and platformCode !=''" >
+			    AND  o.PLATFORM_CODE = #{platformCode}
+			</if>
+			<if test="orderStatus !=null " >
+			    AND  o.ORDER_STATUS  = #{orderStatus}
+			</if>
+			<if test="orderStatusList !=null and orderStatusList !=''" >
+			    AND  o.ORDER_STATUS in 
+			    <foreach collection="orderStatusList" item="item" index="index" 
+					open="(" separator="," close=")">#{item}
+				</foreach>
+			</if>
+			<if test="appointmentTime !=null" >
+			    AND  o.APPOINTMENT_TIME = #{appointmentTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="promptTime !=null" >
+			    AND  o.START_TIME &lt;= #{promptTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="promptTime !=null" >
+			    AND  o.END_TIME &gt;= #{promptTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="promptStopTime !=null" >
+			    AND  o.START_TIME &gt;= #{promptStopTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userId !=null  and userId !=''">
+				AND  o.USER_ID = #{userId}
+			</if>
+			<if test="userName !=null and userName !=''" >
+			    AND  o.USER_NAME = #{userName}
+			</if>
+			<if test="userPhone !=null and userPhone !=''" >
+			    AND  o.USER_PHONE = #{userPhone}
+			</if>
+			<if test="doctorName !=null and doctorName !=''" >
+			    AND  o.DOCTOR_NAME = #{doctorName}
+			</if>
+			<if test="doctorPhone !=null and doctorPhone !=''" >
+			    AND  o.DOCTOR_PHONE = #{doctorPhone}
+			</if> 
+			<if test="doctorId !=null and doctorId !=''" >
+			    AND  o.DOCTOR_ID = #{doctorId}
+			</if> 
+			<if test="orderNo !=null and orderNo !=''" >
+			    AND  o.ORDER_NO = #{orderNo}
+			</if> 
+			<if test="id !=null and id !=''" >
+			    AND  o.ID = #{id}
+			</if>
+        </where>
+         order by o.ET desc
+        
+    </select>
+    
+    <select id="findTransDoc" parameterType="map" resultType="string">
+    SELECT  t3.USER_ID FROM 
+      (SELECT t1.USER_ID FROM DOCTOR_SERVICE_INFO t1, 
+      (SELECT  USER_ID FROM  DOCTOR_USER_APPLY WHERE 
+    	DEPT_LEVEL_ONE_ID = ( SELECT  DEPT_LEVEL_ONE_ID FROM DOCTOR_USER_APPLY  
+	                                WHERE   USER_ID=#{order.doctorId}   limit 1 ) 
+        AND STATUS=2 
+         <choose>
+ 			<when test="hospitalId !=null and hospitalId != '' ">
+				 AND HOSPITAL_ID=#{hospitalId}
+ 			</when>
+			<when test="provinceCode != null and provinceCode !='' ">
+   				AND HOSPITAL_ID IN(  SELECT ID FROM  SYS_HOSPITAL  where  PROVINCE_CODE =#{provinceCode}
+   				    <if test="cityCode != null and cityCode !='' ">
+   				     	AND CITY_CODE=#{cityCode}
+   				    </if>
+   				) 
+ 			</when>
+		</choose>
+            
+         <if test="titleId != null and titleId !='' ">
+             AND TITLE_ID=#{titleId}
+         </if>
+         <if test="doctorName != null and doctorName !=''">
+         	AND USER_NAME=#{doctorName}
+         </if>
+        ) t2  WHERE   t1.${selectColumn} IS NOT NULL 
+		           AND t1.${selectColumn} like '%${selectTimeZone}%'   
+		           AND t1.PRICE=#{order.price}  
+		           AND t1.STATUS='1' 
+		           AND t1.SERVICE_ID=#{order.serviceId}
+		           AND t1.USER_ID = t2.USER_ID  
+		    ) t3 WHERE  
+		    	t3.USER_ID NOT IN 
+					    (select  DOCTOR_ID from BIZ_COUNSELING_ORDER 
+					    		WHERE   DATE_FORMAT(APPOINTMENT_TIME,'%Y-%m-%d')= #{appointmentDay}
+					  			AND SERVICE_ID=#{order.serviceId}
+					   			AND  #{order.startTime} &lt; END_TIME
+					   			AND #{order.endTime} &gt; START_TIME 
+					   	) 
+  </select>
+    
+ 
+      
+   <select id="findDocInfo" parameterType="list" resultType="map">
+  	 SELECT du.ACCOUNT as account, 
+  	  doc.USER_ID as doctorId ,doc.USER_NAME as doctorName ,doc.SEX as sex ,doc.HOSPITAL_ID as hospitalId,doc.HOSPITAL_NAME as hospitalName,
+  	  doc.DEPT_LEVEL_ONE_ID as deptLevelOneId, doc.DEPT_LEVEL_ONE as deptLevelOne,  doc.TITLE_ID as titleId,  doc.TITLE as title,
+  	  hos.PROVINCE_CODE as provinceCode ,hos.PROVINCE_NAME as provinceName, hos.CITY_CODE as cityCode , hos.CITY_NAME as cityName, hos.AREA_CODE as areaCode , hos.AREA_NAME as areaName
+  	   FROM DOCTOR_USER du, DOCTOR_USER_APPLY doc, SYS_HOSPITAL hos
+  	   WHERE doc.HOSPITAL_ID=hos.id and du.ID=doc.USER_ID and doc.USER_ID in 
+  	    <foreach item="item" index="index" collection="list"  
+                open="(" separator=","  close=")">  
+                    #{item}  
+        </foreach>  
+   </select>   
+      
+      
+   <!-- 代接诊数量 --> 
+   <select id="countWaitDeal" parameterType="string" resultType="int">
+       SELECT count(*) FROM  BIZ_COUNSELING_ORDER WHERE DOCTOR_ID=#{doctorId} AND ORDER_STATUS=1
+   </select>   
+      
+   <!-- 代服务数量 -->    
+   <select id="countService" parameterType="string" resultType="int">
+       SELECT count(*) FROM  BIZ_COUNSELING_ORDER where DOCTOR_ID=#{doctorId} AND (ORDER_STATUS=2 or ORDER_STATUS=3)  
+   </select>    
+   
+   <!-- 已完成数量 -->
+   <select id="countOver" parameterType="string" resultType="int">
+       SELECT count(*) FROM  BIZ_COUNSELING_ORDER where DOCTOR_ID=#{doctorId} AND ORDER_STATUS>3
+   </select>   
+   
+   <!-- 更新订单状态 --> <!-- 接诊订单没有过期 -->
+   <update id="updateOrderStatus" parameterType="map" >
+        UPDATE BIZ_COUNSELING_ORDER SET ORDER_STATUS=#{orderStatus} , ET=#{et}
+        	 WHERE  ID=#{id}
+        		<if test="doctorId !=null and doctorId !=''" >
+        		 	AND DOCTOR_ID=#{doctorId}
+        		</if>
+        		<if test="oldOrderStatus !=null">
+        		    AND ORDER_STATUS=#{oldOrderStatus}
+        		</if>
+        		<!-- 产品需求，图文订单不受预约日期的限制 by 甘松 -->
+        		<if test="orderStatus == 2 and serviceType != 1">  
+        		    AND (
+        		    	CURDATE() &lt; APPOINTMENT_TIME 
+        		    	OR ( CURDATE() = APPOINTMENT_TIME  AND ( CURRENT_TIME() &lt; time_format(START_TIME,'%H:%i') ))
+        		    )  
+        		</if>
+   </update>
+</mapper>

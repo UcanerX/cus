@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunshine.mobileapp.api.order.entity.OrderStatus" >
+ <resultMap id="BaseResultMap" type="com.sunshine.mobileapp.api.order.entity.OrderStatus" >
+  	<id column="ID" property="id" jdbcType="VARCHAR" />
+	<result column="ORDER_ID" property="orderId" />
+	<result column="STATUS" property="status" />
+	<result column="CHANGE_TIME" property="changeTime" />
+	
+</resultMap>
+  <sql id="Base_Column_List" >
+    ID,ORDER_ID,STATUS,CHANGE_TIME,
+  </sql>
+  
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from BIZ_ORDER_STATE_CHANGE
+    where ID = #{id}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    delete from BIZ_ORDER_STATE_CHANGE
+    where ID = #{id}
+  </delete> 
+  
+   <insert id="insert" parameterType="com.sunshine.mobileapp.api.order.entity.OrderStatus" >
+    insert into BIZ_ORDER_STATE_CHANGE (<include refid="Base_Column_List" />)
+     values (#{id},#{orderId},#{status},#{changeTime})
+   </insert>
+   
+   <update id="update" parameterType="com.sunshine.mobileapp.api.order.entity.OrderStatus" >
+     update BIZ_COUNSELING_ORDER
+    	<set >
+	    	<if test="orderId !=null">
+			   ORDER_ID = #{orderId},
+			</if>
+			<if test="status !=null">
+			   STATUS = #{status},
+			</if>
+			<if test="changeTime !=null">
+			   CHANGE_TIME = #{changeTime},
+			</if>
+		</set>
+		 where ID = #{id}
+    </update>
+    
+    <select id="findListByParams" parameterType="map" resultMap="BaseResultMap">
+    	select 
+    	<include refid="Base_Column_List" />
+    	from BIZ_ORDER_STATE_CHANGE
+    	<where>
+	    	<if test="orderId !=null and orderId !=''" >
+	   			 AND ORDER_ID = #{orderId}
+			</if>
+			<if test="">
+			     AND 
+			</if>
+    	</where>
+    	order by CHANGE_TIME 
+    </select>
+</mapper>

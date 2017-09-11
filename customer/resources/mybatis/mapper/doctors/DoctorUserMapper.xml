@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.mobileapp.api.index.doctorscollect.entity.DoctorUser">
+  <resultMap id="BaseResultMap" type="com.sunshine.mobileapp.api.index.doctorscollect.entity.DoctorUser">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="OLD_ACCOUNT" jdbcType="VARCHAR" property="oldAccount" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+    <result column="INVITE_CODE" jdbcType="VARCHAR" property="inviteCode" />
+    <result column="SEX" jdbcType="INTEGER" property="sex" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_IMG" jdbcType="VARCHAR" property="userImg" />
+    <result column="CERTIFIED_FRONT_IMG" jdbcType="VARCHAR" property="certifiedFrontImg" />
+    <result column="CERTIFIED_BACK_IMG" jdbcType="VARCHAR" property="certifiedBackImg" />
+    <result column="LICENSE_IMG" jdbcType="VARCHAR" property="licenseImg" />
+    <result column="HOSPITAL_ID" jdbcType="VARCHAR" property="hospitalId" />
+    <result column="HOSPITAL_NAME" jdbcType="VARCHAR" property="hospitalName" />
+    <result column="BRANCH_ID" jdbcType="VARCHAR" property="branchId" />
+    <result column="BRANCH_NAME" jdbcType="VARCHAR" property="branchName" />
+    <result column="DEPT_LEVEL_ONE_ID" jdbcType="VARCHAR" property="deptLevelOneId" />
+    <result column="DEPT_LEVEL_ONE" jdbcType="VARCHAR" property="deptLevelOne" />
+    <result column="DEPT_LEVEL_TWO_ID" jdbcType="VARCHAR" property="deptLevelTwoId" />
+    <result column="DEPT_LEVEL_TWO" jdbcType="VARCHAR" property="deptLevelTwo" />
+    <result column="TITLE_ID" jdbcType="VARCHAR" property="titleId" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="POSITION" jdbcType="VARCHAR" property="position" />
+    <result column="SERVICE_SETTING" jdbcType="INTEGER" property="serviceSetting" />
+    <result column="SPECIALTY" jdbcType="VARCHAR" property="specialty" />
+    <result column="WORK_EXPERIENCE" jdbcType="VARCHAR" property="workExperience" />
+    <result column="MEDICAL_RESUME" jdbcType="VARCHAR" property="medicalResume" />
+    <result column="QR_CODE" jdbcType="VARCHAR" property="qrCode" />
+    <result column="CT" jdbcType="TIMESTAMP" property="ct" />
+    <result column="USER_STATUS" jdbcType="INTEGER" property="userStatus" />
+  </resultMap>
+  
+  <resultMap id="FamousDoctorResultMap" type="com.sunshine.mobileapp.api.index.doctorscollect.vo.DoctorsParamsVo">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_IMG" jdbcType="VARCHAR" property="userImg" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="HOSPITAL_ID" jdbcType="VARCHAR" property="hospitalId" />
+    <result column="HOSPITAL_NAME" jdbcType="VARCHAR" property="hospitalName" />
+    <result column="BRANCH_ID" jdbcType="VARCHAR" property="branchId" />
+    <result column="BRANCH_NAME" jdbcType="VARCHAR" property="branchName" />
+    <result column="DEPT_LEVEL_ONE_ID" jdbcType="VARCHAR" property="deptLevelOneId" />
+    <result column="DEPT_LEVEL_ONE" jdbcType="VARCHAR" property="deptLevelOne" />
+    <result column="DEPT_LEVEL_TWO_ID" jdbcType="VARCHAR" property="deptLevelTwoId" />
+    <result column="DEPT_LEVEL_TWO" jdbcType="VARCHAR" property="deptLevelTwo" />
+    <result column="TITLE_ID" jdbcType="VARCHAR" property="titleId" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="POSITION" jdbcType="VARCHAR" property="position" />
+    <result column="SERVICE_SETTING" jdbcType="INTEGER" property="serviceSetting" />
+    <result column="SPECIALTY" jdbcType="VARCHAR" property="specialty" />
+    <result column="WORK_EXPERIENCE" jdbcType="VARCHAR" property="workExperience" />
+    <result column="MEDICAL_RESUME" jdbcType="VARCHAR" property="medicalResume" />
+  </resultMap>
+  <!--  base column -->
+  <sql id="Base_Column_List">
+    ID, ACCOUNT,OLD_ACCOUNT, USER_NAME, PASSWORD, ID_CARD, INVITE_CODE,POSITION, SERVICE_SETTING, SPECIALTY, WORK_EXPERIENCE, 
+    QR_CODE, CT, TITLE_ID , TITLE
+  </sql>
+  <insert id="insert" parameterType="com.sunshine.mobileapp.api.index.doctorscollect.entity.DoctorUser">
+    insert into DOCTOR_USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="account != null">
+        ACCOUNT,
+      </if>
+      <if test="inviteCode != null">
+        INVITE_CODE,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="position != null">
+        POSITION,
+      </if>
+      <if test="serviceSetting != null">
+        SERVICE_SETTING,
+      </if>
+      <if test="specialty != null">
+        SPECIALTY,
+      </if>
+      <if test="workExperience != null">
+        WORK_EXPERIENCE,
+      </if>
+      <if test="medicalResume != null and medicalResume != ''">
+		MEDICAL_RESUME,
+	</if>
+      <if test="qrCode != null">
+        QR_CODE,
+      </if>
+      <if test="ct != null">
+        CT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCode != null">
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSetting != null">
+        #{serviceSetting,jdbcType=INTEGER},
+      </if>
+      <if test="specialty != null">
+        #{specialty,jdbcType=VARCHAR},
+      </if>
+      <if test="workExperience != null">
+        #{workExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalResume != null and medicalResume != ''">
+		#{medicalResume,jdbcType=VARCHAR},
+	  </if>
+      <if test="qrCode != null">
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ct != null">
+        #{ct,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.sunshine.mobileapp.api.index.doctorscollect.entity.DoctorUser">
+	UPDATE DOCTOR_USER
+	<set>
+		<if test="account != null and account != ''">
+			ACCOUNT = #{account,jdbcType=VARCHAR},
+		</if>
+		<if test="oldAccount != null and oldAccount != ''">
+			OLD_ACCOUNT = #{oldAccount,jdbcType=VARCHAR},
+		</if>
+		<if test="userName != null and userName != ''">
+			USER_NAME = #{userName,jdbcType=VARCHAR},
+		</if>
+		<if test="sex != null and sex != ''">
+			SEX = #{sex,jdbcType=INTEGER},
+		</if>
+		
+		<if test="title != null and title != ''">
+			TITLE = #{title,jdbcType=VARCHAR},
+		</if>
+		<if test="titleId != null and titleId != ''">
+			TITLE_ID = #{titleId,jdbcType=VARCHAR},
+		</if>
+		
+		
+		<if test="hospitalId != null and hospitalId != ''">
+			HOSPITAL_ID = #{hospitalId,jdbcType=VARCHAR},
+		</if>	
+		<if test="hospitalName != null and hospitalName != ''">
+			HOSPITAL_NAME = #{hospitalName,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="hospitalId != null and hospitalId != ''">
+			HOSPITAL_ID = #{hospitalId,jdbcType=VARCHAR},
+		</if>	
+		<if test="hospitalName != null and hospitalName != ''">
+			HOSPITAL_NAME = #{hospitalName,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="branchId != null and branchId != ''">
+			BRANCH_ID = #{branchId,jdbcType=VARCHAR},
+		</if>	
+		<if test="branchName != null and branchName != ''">
+			BRANCH_NAME = #{branchName,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="deptLevelOneId != null and deptLevelOneId != ''">
+			DEPT_LEVEL_ONE_ID = #{deptLevelOneId,jdbcType=VARCHAR},
+		</if>	
+		<if test="deptLevelOne != null and deptLevelOne != ''">
+			DEPT_LEVEL_ONE = #{deptLevelOne,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="deptLevelTwoId != null and deptLevelTwoId != ''">
+			DEPT_LEVEL_TWO_ID = #{deptLevelTwoId,jdbcType=VARCHAR},
+		</if>	
+		<if test="deptLevelTwo != null and deptLevelTwo != ''">
+			DEPT_LEVEL_TWO = #{deptLevelTwo,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="inviteCode != null and inviteCode != ''">
+			INVITE_CODE = #{inviteCode,jdbcType=VARCHAR},
+		</if>	
+		<if test="password != null and password != ''">
+			PASSWORD = #{password,jdbcType=VARCHAR},
+		</if>
+		<if test="serviceSetting != null">
+			  SERVICE_SETTING = #{serviceSetting,jdbcType=INTEGER},
+		</if>	
+		<if test="specialty != null and specialty != ''">
+			SPECIALTY = #{specialty,jdbcType=VARCHAR},
+		</if>
+		<if test="workExperience != null and workExperience != ''">
+			WORK_EXPERIENCE = #{workExperience,jdbcType=VARCHAR},
+		</if>
+		<if test="medicalResume != null and medicalResume != ''">
+			MEDICAL_RESUME = #{medicalResume,jdbcType=VARCHAR},
+		</if>
+		<if test="qrCode != null and qrCode != ''">
+			QR_CODE = #{qrCode,jdbcType=VARCHAR}
+		</if>	
+	</set>
+	<where>
+		1=1 and ID = #{id,jdbcType=VARCHAR} 
+	</where> 
+		 
+  </update>
+  <update id="updateByParams"  parameterType="java.util.Map" >
+	UPDATE DOCTOR_USER
+	<set>
+		<if test="specialty != null and specialty != ''">
+			SPECIALTY = #{specialty,jdbcType=VARCHAR},
+		</if>
+		<if test="workExperience != null and workExperience != ''">
+			WORK_EXPERIENCE = #{workExperience,jdbcType=VARCHAR},
+		</if>
+		<if test="medicalResume != null and medicalResume != ''">
+			MEDICAL_RESUME = #{medicalResume,jdbcType=VARCHAR},
+		</if>
+		<if test="qrCode != null and qrCode != ''">
+			QR_CODE = #{qrCode,jdbcType=VARCHAR},
+		</if>
+		<if test="userStatus != null and userStatus != ''">
+        	USER_STATUS = #{userStatus,jdbcType=INTEGER},
+       </if>		
+	</set>
+	<where>
+       ID = #{id,jdbcType=VARCHAR} 
+	</where> 		 	 
+  </update>
+  <select id="findByAccount" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> 
+		from  DOCTOR_USER
+	<where> 
+    	1=1 and ACCOUNT = #{account,jdbcType=VARCHAR}
+    </where>
+  </select>
+  <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT u.*,ua.USER_NAME, ua.SEX, ua.USER_IMG, ua.CERTIFIED_FRONT_IMG, ua.CERTIFIED_BACK_IMG, ua.LICENSE_IMG, 
+    ua.HOSPITAL_ID, ua.HOSPITAL_NAME,ua.BRANCH_ID,ua.BRANCH_NAME, ua.DEPT_LEVEL_ONE_ID,ua.DEPT_LEVEL_ONE, ua.DEPT_LEVEL_TWO_ID, 
+    ua.DEPT_LEVEL_TWO, ua.TITLE_ID, ua.TITLE 
+    FROM  DOCTOR_USER u LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID=u.ID AND ua.STATUS=2  AND ua.IS_LAST=1
+    where u.ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <!--  findDoctorListByDept 查询医生列表 通过部门-->
+  <select id="findDoctorListByDept" parameterType="String" resultMap="FamousDoctorResultMap">
+  SELECT	u.ID,
+			u.SPECIALTY,
+			u.WORK_EXPERIENCE,
+			u.MEDICAL_RESUME,
+			ua.USER_NAME,
+			ua.USER_IMG,
+			ua.HOSPITAL_ID,
+			ua.HOSPITAL_NAME,
+			ua.BRANCH_ID,
+			ua.BRANCH_NAME,
+			ua.DEPT_LEVEL_ONE_ID,
+			ua.DEPT_LEVEL_ONE,
+			ua.DEPT_LEVEL_TWO_ID,
+			ua.DEPT_LEVEL_TWO,
+			ua.TITLE_ID,
+			ua.TITLE
+		FROM
+			DOCTOR_USER u
+		LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID = u.ID
+		AND ua. STATUS = 2
+		AND ua.IS_LAST = 1
+        AND ua.DEPT_LEVEL_ONE_ID= #{deptId}
+  </select>
+  <!-- findDoctorDetailById  通过id查询医生详情 -->
+  <select id="findDoctorDetailById" parameterType="String" resultMap="FamousDoctorResultMap" >
+    SELECT	u.ID,
+			u.SPECIALTY,
+			u.WORK_EXPERIENCE,
+			u.MEDICAL_RESUME,
+			ua.USER_NAME,
+			ua.USER_IMG,
+			ua.HOSPITAL_ID,
+			ua.HOSPITAL_NAME,
+			ua.BRANCH_ID,
+			ua.BRANCH_NAME,
+			ua.DEPT_LEVEL_ONE_ID,
+			ua.DEPT_LEVEL_ONE,
+			ua.DEPT_LEVEL_TWO_ID,
+			ua.DEPT_LEVEL_TWO,
+			ua.TITLE_ID,
+			ua.TITLE
+		FROM
+			DOCTOR_USER u , DOCTOR_USER_APPLY ua
+		WHERE u.ID = ua.USER_ID 
+		AND   u.ID = #{doctorId}
+  </select>  
+  
+  <!--  findFamousDoctorList  查询名医列表数据 -->
+  <select id="findFamousDoctorList" resultMap="FamousDoctorResultMap" >
+  SELECT	u.ID,
+			u.SPECIALTY,
+			u.WORK_EXPERIENCE,
+			u.MEDICAL_RESUME,
+			ua.USER_NAME,
+			ua.USER_IMG,
+			ua.HOSPITAL_ID,
+			ua.HOSPITAL_NAME,
+			ua.BRANCH_ID,
+			ua.BRANCH_NAME,
+			ua.DEPT_LEVEL_ONE_ID,
+			ua.DEPT_LEVEL_ONE,
+			ua.DEPT_LEVEL_TWO_ID,
+			ua.DEPT_LEVEL_TWO,
+			ua.TITLE_ID,
+			ua.TITLE
+		FROM
+			DOCTOR_USER u
+		LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID = u.ID
+		AND ua. STATUS = 2
+		AND ua.IS_LAST = 1
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap" >
+   SELECT u.*,ua.USER_NAME, ua.SEX, ua.USER_IMG, ua.CERTIFIED_FRONT_IMG, ua.CERTIFIED_BACK_IMG, ua.LICENSE_IMG, 
+    ua.HOSPITAL_ID, ua.HOSPITAL_NAME,ua.BRANCH_ID,ua.BRANCH_NAME, ua.DEPT_LEVEL_ONE_ID,ua.DEPT_LEVEL_ONE, ua.DEPT_LEVEL_TWO_ID, 
+    ua.DEPT_LEVEL_TWO, ua.TITLE_ID, ua.TITLE 
+    FROM  DOCTOR_USER u LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID=u.ID AND ua.STATUS=2  AND ua.IS_LAST=1
+  </select>
+  
+  <select id="countByAccount" parameterType="java.lang.String" resultType="java.lang.Integer" >
+     SELECT COUNT(*) FROM DOCTOR_USER where ACCOUNT=#{account}
+  </select>
+</mapper>

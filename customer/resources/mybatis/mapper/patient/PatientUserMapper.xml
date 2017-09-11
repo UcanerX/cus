@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunshine.mobileapp.api.patient.entity.PatientUser">
+  <resultMap id="BaseResultMap" type="com.sunshine.mobileapp.api.patient.entity.PatientUser">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" property="password" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="OLD_ACCOUNT" jdbcType="VARCHAR" property="oldAccount" />
+    <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+    <result column="SEX" jdbcType="INTEGER" property="sex" />
+    <result column="T_AGE" jdbcType="INTEGER" property="age" />
+    <result column="HEIGHT" jdbcType="FLOAT" property="height" />
+    <result column="WEIGHT" jdbcType="FLOAT" property="weight" />
+    <result column="CT" jdbcType="TIMESTAMP" property="ct" />
+    
+    <result column="PROVINCE_CODE" property="provinceCode" />
+	<result column="PROVINCE_NAME" property="provinceName" />
+	<result column="CITY_CODE" property="cityCode" />
+	<result column="CITY_NAME" property="cityName" />
+	<result column="AREA_CODE" property="areaCode" />
+	<result column="AREA_NAME" property="areaName" />
+	<result column="CHANNEL" property="channel" />
+	<result column="STATUS" property="status" />
+	<result column="BIRTHDAY" property="birthday" />
+	<result column="ID_CARD" property="idCard" />
+  </resultMap>
+  <!--  MEDICAL＿RESUME -->
+  <sql id="Base_Column_List">
+    ID, ACCOUNT,PASSWORD, USER_NAME, OLD_ACCOUNT, OPEN_ID, SEX, T_AGE, HEIGHT, WEIGHT,CT
+    ,PROVINCE_CODE,PROVINCE_NAME,CITY_CODE,CITY_NAME,AREA_CODE,AREA_NAME,CHANNEL,STATUS,BIRTHDAY,ID_CARD
+  </sql>
+  <insert id="insert" parameterType="com.sunshine.mobileapp.api.patient.entity.PatientUser">
+    insert into PATIENT_USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="account != null">
+        ACCOUNT,
+      </if>
+      <if test="password != null">
+      	PASSWORD,
+      </if>
+       <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="oldAccount != null">
+        OLD_ACCOUNT,
+      </if>
+      <if test="openId != null">
+        OPEN_ID,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="age != null">
+        T_AGE,
+      </if>
+      <if test="height != null">
+        HEIGHT,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+      <if test="ct != null">
+        CT,
+      </if>
+      <if test="provinceCode !=null">
+	    PROVINCE_CODE,
+	  </if>
+	  <if test="provinceName !=null">
+	    PROVINCE_NAME,
+	  </if>
+	  <if test="cityCode !=null">
+	    CITY_CODE,
+	  </if>
+	  <if test="cityName !=null">
+	    CITY_NAME,
+	  </if>
+	  <if test="areaCode !=null">
+	    AREA_CODE = #{areaCode},
+	  </if>
+	  <if test="areaName !=null">
+	    AREA_NAME,
+	 </if>
+	 <if test="channel !=null">
+	   CHANNEL,
+	 </if>
+	 <if test="status !=null">
+	   STATUS,
+	 </if>
+	 <if test="birthday !=null">
+	   BIRTHDAY,
+	 </if>
+	 <if test="idCard !=null">
+	   ID_CARD,
+	 </if> 
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password !=null">
+   		#{password,jdbcType=VARCHAR},
+	  </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="oldAccount != null">
+        #{oldAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+       <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=FLOAT},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=FLOAT},
+      </if>
+      <if test="ct != null">
+        #{ct,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provinceCode !=null">
+	    #{provinceCode},
+	  </if>
+	  <if test="provinceName !=null">
+	    #{provinceName},
+	  </if>
+	  <if test="cityCode !=null">
+	    #{cityCode},
+	  </if>
+	  <if test="cityName !=null">
+	    #{cityName},
+	  </if>
+	  <if test="areaCode !=null">
+	    #{areaCode},
+	  </if>
+	  <if test="areaName !=null">
+	    #{areaName},
+	 </if>
+	 <if test="channel !=null">
+	    #{channel},
+	 </if>
+	 <if test="status !=null">
+	     #{status},
+	 </if>
+	 <if test="birthday !=null">
+	     #{birthday},
+	 </if>
+	 <if test="idCard !=null">
+	     #{idCard},
+	 </if> 
+    </trim>
+  </insert>
+  <select id="findByAccount" parameterType="String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> 
+		from  PATIENT_USER
+	<where> 
+    	1=1 and ACCOUNT = #{account,jdbcType=VARCHAR}
+    </where>
+  </select>
+  <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> 
+		from  PATIENT_USER
+	<where> 
+    	1=1 and ID = #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+  
+   <update id="update" parameterType="com.sunshine.mobileapp.api.patient.entity.PatientUser">
+   		UPDATE PATIENT_USER
+	    <set>
+	      <if test="userName != null and userName !='' ">
+	        USER_NAME = #{userName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="status !=null  and status !='' ">
+	      	STATUS = #{status}
+	      </if>
+	      <if test="provinceCode !=null and provinceCode !=''">
+		   PROVINCE_CODE = #{provinceCode},
+		 </if>
+		 <if test="provinceName !=null and provinceName !=''">
+		    PROVINCE_NAME = #{provinceName},
+		 </if>
+		 <if test="cityCode !=null and cityCode !=''">
+		   CITY_CODE = #{cityCode},
+		 </if>
+		 <if test="cityName !=null and cityName !=''">
+		   CITY_NAME = #{cityName},
+		 </if>
+		 <if test="areaCode !=null and areaCode !=''">
+		   AREA_CODE = #{areaCode},
+		 </if>
+		 <if test="areaName !=null and areaName !=''">
+		   AREA_NAME = #{areaName},
+		 </if>
+		 <if test="birthday !=null and birthday !=''">
+	   		BIRTHDAY = #{birthday},
+		</if>
+		<if test="sex !=null and sex !=''">
+	   		SEX = #{sex},
+		</if>
+		<if test="userImg !=null and userImg !=''">
+	   		USER_IMG = #{userImg},
+		</if>
+	    </set>
+	    WHERE ID= #{id,jdbcType=VARCHAR}
+   </update>
+  
+   <update id="updateByParams" parameterType="Map">
+    UPDATE PATIENT_USER
+    <set>
+      <if test="userName != null and userName !='' ">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status !=null  and status !='' ">
+      	STATUS = #{status}
+      </if>
+      <if test="provinceCode !=null and provinceCode !=''">
+	   PROVINCE_CODE = #{provinceCode},
+	 </if>
+	 <if test="provinceName !=null and provinceName !=''">
+	    PROVINCE_NAME = #{provinceName},
+	 </if>
+	 <if test="cityCode !=null and cityCode !=''">
+	   CITY_CODE = #{cityCode},
+	 </if>
+	 <if test="cityName !=null and cityName !=''">
+	   CITY_NAME = #{cityName},
+	 </if>
+	 <if test="areaCode !=null and areaCode !=''">
+	   AREA_CODE = #{areaCode},
+	 </if>
+	 <if test="areaName !=null and areaName !=''">
+	   AREA_NAME = #{areaName},
+	 </if>
+	 <if test="birthday !=null and birthday !=''">
+   		BIRTHDAY = #{birthday},
+	</if>
+	<if test="sex !=null and sex !=''">
+   		SEX = #{sex},
+	</if>
+	<if test="userImg !=null and userImg !=''">
+   		USER_IMG = #{userImg},
+	</if>
+	 
+    </set>
+    WHERE ID= #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="findListByPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM PATIENT_USER 
+        <where>
+           	<if test="provinceCode !=null and provinceCode !=''" >
+    			AND  PROVINCE_CODE = #{provinceCode}
+			</if>
+			<if test="cityCode !=null and cityCode !=''" >
+			    AND  CITY_CODE = #{cityCode}
+			</if>
+			<if test="status !=null and status !=''" >
+			    AND  STATUS = #{status}
+			</if>
+			<if test="userName !=null and userName !=''" >
+			    AND  USER_NAME = #{userName}
+			</if>
+			<if test="account !=null and account !=''" >
+			    AND  ACCOUNT = #{account}
+			</if>
+        </where>
+    </select>
+</mapper>
