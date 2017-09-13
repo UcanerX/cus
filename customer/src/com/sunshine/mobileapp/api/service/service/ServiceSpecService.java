@@ -2,7 +2,7 @@ package com.sunshine.mobileapp.api.service.service;
 
 import java.util.Map;
 
-import com.sunshine.framework.base.service.BaseService;
+import com.sunshine.framework.mvc.service.BaseService;
 import com.sunshine.mobileapp.api.service.entity.ServiceSpec;
 
 /**
@@ -18,6 +18,6 @@ import com.sunshine.mobileapp.api.service.entity.ServiceSpec;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public interface ServiceSpecService extends BaseService<ServiceSpec, String>{
+public interface ServiceSpecService extends BaseService<ServiceSpec, String> {
 	public void batchUpdateStatus(Map<String, Object> map);
 }

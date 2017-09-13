@@ -37,12 +37,26 @@
 	<result column="CT" property="ct" />
 	<result column="EP" property="ep" />
 	<result column="ET" property="et" />
+	
+<result column="INQUIRE_ID" property="inquireId" />
+<result column="TRADE_MODE" property="tradeMode" />
+<result column="TRADE_ORDER_NO" property="tradeOrderNo" />
+<result column="REFUND_ORDER_NO" property="refundOrderNo" />
+<result column="PAY_TIME" property="payTime" />
+<result column="REFUND_TIME" property="refundTime" />
+<result column="PAY_STATUS" property="payStatus" />
+<result column="INQUIRE_NAME" property="inquireName" />
+<result column="INQUEIRE_AGE" property="inqueireAge" />
+<result column="INQUIRE_SEX" property="inquireSex" />
+
 </resultMap>
   <sql id="Base_Column_List" >
     ID,ORDER_NO,SERVICE_ID,DOCTOR_ID,DOCTOR_NAME,PROVINCE_CODE,PROVINCE_NAME,CITY_CODE,CITY_NAME,
     AREA_CODE,AREA_NAME,USER_ID,USER_NAME,PARENT_ORDER,APPOINTMENT_TIME,APPOINTMENT_TIME_STR,BUY_TIME,START_TIME,
     END_TIME,ACTUAL_START_TIME,ACTUAL_END_TIME,PRICE,ORDER_FEE,ORDER_DESC,IMAGE_URLS,DOCTOR_PHONE,USER_PHONE,EXPIRE_DATE,
     PLATFORM_CODE,ORDER_STATUS,CP,CT,EP,ET
+    ,INQUIRE_ID,TRADE_MODE,TRADE_ORDER_NO,REFUND_ORDER_NO,PAY_TIME,REFUND_TIME,PAY_STATUS
+    ,INQUIRE_NAME,INQUEIRE_AGE,INQUIRE_SEX
   </sql>
   
   <!-- 不包含订单详细消息 ，img -->
@@ -78,6 +92,8 @@
      #{cityName},#{areaCode},#{areaName},#{userId},#{userName},#{parentOrder},#{appointmentTime},#{appointmentTimeStr},
      #{buyTime},#{startTime},#{endTime},#{actualStartTime},#{actualEndTime},#{price},#{orderFee},#{orderDesc},#{imageUrls},#{doctorPhone},
      #{userPhone},#{expireDate},#{platformCode},#{orderStatus},#{cp},#{ct},#{ep},#{et}
+     ,#{inquireId},#{tradeMode},#{tradeOrderNo},#{refundOrderNo},#{payTime},#{refundTime},#{payStatus}
+      ,#{inquireName},#{inqueireAge},#{inquireSex}
      )
    </insert>
    
@@ -177,6 +193,29 @@
 			<if test="et !=null">
 			   ET = #{et},
 			</if>
+			
+			<if test="inquireId !=null and inquireId !=''">
+			   INQUIRE_ID = #{inquireId},
+			</if>
+			<if test="tradeMode !=null and tradeMode !=''">
+			   TRADE_MODE = #{tradeMode},
+			</if>
+			<if test="tradeOrderNo !=null and tradeOrderNo !=''">
+			   TRADE_ORDER_NO = #{tradeOrderNo},
+			</if>
+			<if test="refundOrderNo !=null and refundOrderNo !=''">
+			   REFUND_ORDER_NO = #{refundOrderNo},
+			</if>
+			<if test="payTime !=null">
+			   PAY_TIME = #{payTime},
+			</if>
+			<if test="refundTime !=null">
+			   REFUND_TIME = #{refundTime},
+			</if>
+			<if test="payStatus !=null">
+			   PAY_STATUS = #{payStatus},
+			</if>
+			
 		</set>
 		 where ID = #{id}
     </update>
@@ -277,6 +316,29 @@
 			<if test="et !=null">
 			   ET = #{et},
 			</if>
+			
+			<if test="inquireId !=null and inquireId !=''">
+			   INQUIRE_ID = #{inquireId},
+			</if>
+			<if test="tradeMode !=null and tradeMode !=''">
+			   TRADE_MODE = #{tradeMode},
+			</if>
+			<if test="tradeOrderNo !=null and tradeOrderNo !=''">
+			   TRADE_ORDER_NO = #{tradeOrderNo},
+			</if>
+			<if test="refundOrderNo !=null and refundOrderNo !=''">
+			   REFUND_ORDER_NO = #{refundOrderNo},
+			</if>
+			<if test="payTime !=null">
+			   PAY_TIME = #{payTime},
+			</if>
+			<if test="refundTime !=null">
+			   REFUND_TIME = #{refundTime},
+			</if>
+			<if test="payStatus !=null">
+			   PAY_STATUS = #{payStatus},
+			</if>
+			
 		</set>
 		 where ID = #{id} 
     </update>
@@ -308,7 +370,7 @@
 			<if test="platformCode !=null and platformCode !=''" >
 			    AND  o.PLATFORM_CODE = #{platformCode}
 			</if>
-			<if test="orderStatus !=null and orderStatus !=''" >
+			<if test="orderStatus !=null" >
 			    AND  o.ORDER_STATUS = #{orderStatus}
 			</if>
 			<!-- 待服务的消息 -->
@@ -318,6 +380,13 @@
 			<!-- 已结束的消息 -->
 			<if  test="overOrder !=null and overOrder !=''">
 				AND  o.ORDER_STATUS >3
+			</if>
+			
+			<if test="orderStatusList !=null and orderStatusList !=''" >
+			    AND  o.ORDER_STATUS in 
+			    <foreach collection="orderStatusList" item="item" index="index" 
+					open="(" separator="," close=")">#{item}
+				</foreach>
 			</if>
 			
 			<!-- <if test="unTransQuery !=null and unTransQuery !=''">
@@ -500,15 +569,18 @@
         		<if test="doctorId !=null and doctorId !=''" >
         		 	AND DOCTOR_ID=#{doctorId}
         		</if>
+        		<if test="userId !=null and userId !=''">
+        			AND USER_ID = #{userId}
+        		</if>
         		<if test="oldOrderStatus !=null">
         		    AND ORDER_STATUS=#{oldOrderStatus}
         		</if>
         		<!-- 产品需求，图文订单不受预约日期的限制 by 甘松 -->
-        		<if test="orderStatus == 2 and serviceType != 1">  
+        	<!-- 	<if test="orderStatus == 2 and serviceType != 1">  
         		    AND (
         		    	CURDATE() &lt; APPOINTMENT_TIME 
         		    	OR ( CURDATE() = APPOINTMENT_TIME  AND ( CURRENT_TIME() &lt; time_format(START_TIME,'%H:%i') ))
         		    )  
-        		</if>
+        		</if> -->
    </update>
 </mapper>

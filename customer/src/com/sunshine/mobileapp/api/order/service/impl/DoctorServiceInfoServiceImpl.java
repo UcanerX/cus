@@ -20,9 +20,9 @@ import com.sunshine.cache.component.DoctorServiceListCache;
 import com.sunshine.framework.common.spring.ext.SpringContextHolder;
 import com.sunshine.framework.mvc.mysql.dao.BaseDao;
 import com.sunshine.framework.mvc.mysql.service.impl.BaseServiceImpl;
-import com.sunshine.mobileapp.api.index.serviceinfo.dao.DoctorServiceInfoDao;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
 import com.sunshine.mobileapp.api.order.service.DoctorServiceInfoService;
+import com.sunshine.mobileapp.api.serviceinfo.dao.DoctorServiceInfoDao;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 
@@ -43,7 +43,7 @@ public class DoctorServiceInfoServiceImpl extends BaseServiceImpl<DoctorServiceI
 
 	@Autowired
 	DoctorServiceInfoDao doctorServiceInfoDao;
-	
+
 	@Autowired
 	DoctorServiceListCache doctorServiceListCache = SpringContextHolder.getBean(DoctorServiceListCache.class);
 
@@ -60,6 +60,7 @@ public class DoctorServiceInfoServiceImpl extends BaseServiceImpl<DoctorServiceI
 	public List<DoctorServiceInfo> findServiceInfoByStatus(Integer status) {
 		return doctorServiceInfoDao.findServiceInfoByStatus(status);
 	}
+
 	/**
 	 * 获取医生服务列表
 	 */
@@ -67,7 +68,7 @@ public class DoctorServiceInfoServiceImpl extends BaseServiceImpl<DoctorServiceI
 	public List<DoctorServiceInfo> getServiceListByUserId(String userId) {
 		return doctorServiceInfoDao.getServiceListByUserId(userId);
 	}
-	
+
 	/**
 	 * 获取医生服务列表
 	 */

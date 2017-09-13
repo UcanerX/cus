@@ -3,9 +3,8 @@ package com.sunshine.mobileapp.api.service.service;
 import java.util.List;
 import java.util.Map;
 
-import com.sunshine.framework.base.service.BaseService;
+import com.sunshine.framework.mvc.service.BaseService;
 import com.sunshine.mobileapp.api.service.entity.ServicePriceManage;
-
 
 /**
  * @Project: easy_health 

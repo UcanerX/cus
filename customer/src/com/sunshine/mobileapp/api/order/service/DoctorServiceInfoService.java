@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sunshine.framework.mvc.service.BaseService;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 
@@ -30,15 +30,15 @@ import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
  * @Version: 1.0
  */
 public interface DoctorServiceInfoService extends BaseService<DoctorServiceInfo, String> {
-	
+
 	public List<DoctorServiceInfo> getServiceListByUserId(String userId);
-	
+
 	public List<DoctorServiceInfo> getServiceListByUserIds(List<String> userIdList);
 
 	public List<DoctorServiceInfo> getServiceListCache(String userId);
 
 	public DoctorServiceInfo getDoctorServiceInfoByServiceIdAndUserId(Map params);
-	
+
 	public List<DoctorServiceInfo> findServiceInfoByStatus(Integer status);
 
 }

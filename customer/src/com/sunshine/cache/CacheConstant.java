@@ -133,7 +133,6 @@ public class CacheConstant {
 
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return getCacheKey();
 		}
 	}
@@ -163,39 +162,93 @@ public class CacheConstant {
 
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return getCacheField();
 		}
 	}
-	
+
 	/**
 	 * 医院省、市、区县缓存前缀
 	 */
 	public static final String CACHE_HOSPITAL_AREA_KEY_PREFIX = "hospital.area.infos";
-	
+
 	/**
 	 * 咨询统计  
 	 */
 	public static final String PATIENT_INQUIRY_STATISTIC_PREFIX = "patient.inquiry.statistic";
-	
+
 	/**
 	 * 订单计数
 	 */
 	public static final String PATIENT_ORDER_COUNT = "patient.order.count";
-	
+
+	/**
+	 * 医生订单计数
+	 */
+	public static final String DOCTOR_ORDER_COUNT = "doctor.order.count";
+
+	/**
+	 * 医生服务列表缓存
+	 */
+	public static final String CACHE_DOCTOR_SERVICE_LIST_KEY_PREFIX = "doctor.service.list.infos";
+
+	/**
+	 * 医生消息
+	 */
+	public static final String DOCTOR_MSG_COUNT_KEY_PREFIX = "doctor.msg.count";
+
+	/**
+	 * 短信提醒的订单信息缓存
+	 */
+	public static final String MSG_PROMPT_ORDER_KEY_PREFIX = "order.msg.prompt";
+
+	/**
+	 * 电话绑定关系缓存前缀
+	 */
+	public static final String PHONE_CALL_BIND_KEY_PREFIX = "phone.call.bind.infos";
+
+	/**
+	 * 电话管理订单缓存前缀
+	 */
+	public static final String PHONE_CALL_ASSOCIATED_ORDER_KEY_PREFIX = "phone.call.associated.orderno";
+
+	/**
+	 * 电话咨询服务设置缓存
+	 */
+	public static final String CACHE_DOCTOR_SERVICE_SETTING_CONSULT_KEY_PREFIX = "doctor.service.consult.setting";
+
+	/**
+	 * 新订单提示缓存
+	 */
+	public static final String PROMPT_NEW_ORDER_KEY_PREFIX = "order.new.prompt";
+
+	/**
+	 * 医生可用排班时间缓存
+	 */
+	public static final String DOCTOR_AVAILABLE_TIME_KEY_PREFIX = "doctor.availabletime.infos";
+
+	/**
+	 * 医生剩余预约时间缓存
+	 */
+	public static final String DOCTOR_APPOINTMENT_TIME_KEY_PREFIX = "doctor.appointment.time.info";
+
 	/**
 	 * 系统服务列表项缓存
 	 */
 	public static final String SYS_SERVICE_LIST_KEY_PREFIX = "sys.service.infos";
 
-	public static final String DOCTOR_AVAILABLE_TIME_KEY_PREFIX = null;
+	/**
+	 * 医生昵称缓存key
+	 */
+	public static final String DOCTOR_USER_ALIAS_NAME_KEY_PREFIX = "doctor.user.alias.name.infos";
 
-	public static final String CACHE_DOCTOR_SERVICE_SETTING_CONSULT_KEY_PREFIX = null;
+	/**
+	 * 个人中心消息:缓存hash结构的cachekey 前缀
+	 */
+	public static final String CACHE_MSG_CENTER_KEY_FREFIX = "msg.center.hash";
 
-	public static final String DOCTOR_APPOINTMENT_TIME_KEY_PREFIX = null;
-
-	public static final String DOCTOR_USER_ALIAS_NAME_KEY_PREFIX = null;
-
-	public static final String CACHE_DOCTOR_SERVICE_LIST_KEY_PREFIX = null;
+	/**
+	 * 问诊人填写相关的临时缓存
+	 */
+	public static final String INQUIRE_USER_TEMP_KEY_PREFIX = "inquire.user.temp.infos";
 
 }

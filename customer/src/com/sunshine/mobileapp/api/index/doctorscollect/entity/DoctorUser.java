@@ -29,7 +29,7 @@ import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
 * @Modify marker：   
 * @version    V1.0
  */
-public class DoctorUser extends BaseSQLEntity  {
+public class DoctorUser extends BaseSQLEntity {
 
 	private static final long serialVersionUID = 1176629029485257339L;
 
@@ -37,7 +37,7 @@ public class DoctorUser extends BaseSQLEntity  {
 	 * 账号
 	 */
 	private String account;
-	
+
 	private String oldAccount;
 
 	/**
@@ -49,10 +49,10 @@ public class DoctorUser extends BaseSQLEntity  {
 	 * 用户密码
 	 */
 	private String password;
-	
-   /**
-    * 身份证号码
-    */
+
+	/**
+	 * 身份证号码
+	 */
 	private String idCard;
 
 	/**
@@ -63,9 +63,9 @@ public class DoctorUser extends BaseSQLEntity  {
 	/**
 	 * 注册日期
 	 */
-	@DateTimeFormat( pattern = "yyyy-MM-dd" )
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date ct;
-	
+
 	/**
 	 * 性别：1-男 2-女
 	 */
@@ -158,7 +158,7 @@ public class DoctorUser extends BaseSQLEntity  {
 	 * 执业经历
 	 */
 	private String workExperience;
-	
+
 	/**
 	 * 医学背景 履历
 	 */
@@ -172,7 +172,7 @@ public class DoctorUser extends BaseSQLEntity  {
 	 * 医院的简介 不入库
 	 */
 	private String hospitalIntroduced;
-	
+
 	//当前用户的启停用状态  0 未知  1启用 2停用
 	private int userStatus;
 
@@ -212,7 +212,6 @@ public class DoctorUser extends BaseSQLEntity  {
 		this.ct = ct;
 	}
 
-	
 	public String getMedicalResume() {
 		return medicalResume;
 	}

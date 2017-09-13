@@ -17,15 +17,16 @@ import com.sunshine.common.utils.OrderNoGenerator;
 import com.sunshine.common.utils.WeekDay;
 import com.sunshine.common.utils.WeekDayUtils;
 import com.sunshine.framework.utils.DateUtils;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
 import com.sunshine.mobileapp.api.order.entity.Order;
 import com.sunshine.mobileapp.api.order.planning.AutoOrderScheduler;
 import com.sunshine.mobileapp.api.order.planning.AvailableTime;
 import com.sunshine.mobileapp.api.order.planning.OrderTimePlan;
 import com.sunshine.mobileapp.api.order.planning.ServiceOrderTimePlan;
 import com.sunshine.mobileapp.api.order.service.DoctorServiceInfoService;
+import com.sunshine.mobileapp.api.order.service.OrderStatusService;
 import com.sunshine.mobileapp.api.order.service.PatientOrderService;
 import com.sunshine.mobileapp.api.patient.dao.PatientUserDao;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 
@@ -57,8 +58,8 @@ public class PatientOrderServiceImpl extends OrderServiceImpl implements Patient
 	@Autowired
 	private DoctorAvailableAppointmentTimeCache doctorAvailableAppointmentTimeCache;
 	
-	/*@Autowired
-	private OrderStatusService orderStatusService;*/
+	@Autowired
+	private OrderStatusService orderStatusService;
 	
 	private AutoOrderScheduler scheduler = new AutoOrderScheduler();
 	
@@ -77,9 +78,9 @@ public class PatientOrderServiceImpl extends OrderServiceImpl implements Patient
 			DoctorServiceInfo setting = null;
 			setting = doctorServiceSettingCache.getDoctorServiceConsultSetting(unsavedOrder.getDoctorId(), unsavedOrder.getServiceId());
 			
-			unsavedOrder.setPrice(setting.getPrice());
+			unsavedOrder.setPrice(Double.valueOf(setting.getPrice()));
 			Double fee = unsavedOrder.getBuyTime() > 0 ? unsavedOrder.getPrice() * unsavedOrder.getBuyTime() : unsavedOrder.getPrice();
-			unsavedOrder.setOrderFee(fee.floatValue());
+			unsavedOrder.setOrderFee(fee);
 			unsavedOrder.setCt(new Date());
 			unsavedOrder.setEt(new Date());
 			

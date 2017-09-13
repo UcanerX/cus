@@ -45,9 +45,6 @@ public class PatientInquiryCache {
     
     public static final String LAST_LOGINTIME = "lastLoginTime" ;
     
-    
- 
-    
     /**
      * 批量获取 用户的 咨询次数,咨询金额，登陆时间
      * @param key

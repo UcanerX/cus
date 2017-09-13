@@ -1,4 +1,3 @@
-
 /**
  * <html>
  * <body>
@@ -19,9 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.sunshine.framework.exception.SystemException;
 import com.sunshine.framework.mvc.mysql.dao.impl.BaseDaoImpl;
 import com.sunshine.mobileapp.api.index.doctorscollect.dao.DoctorUserDao;
@@ -45,50 +41,46 @@ import com.sunshine.mobileapp.api.index.doctorscollect.vo.DoctorsParamsVo;
  */
 
 @Repository(value = "doctorUserDao")
-public class DoctorUserDaoImpl extends BaseDaoImpl<DoctorUser, String>implements DoctorUserDao {
+public class DoctorUserDaoImpl extends BaseDaoImpl<DoctorUser, String> implements DoctorUserDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(DoctorUserDaoImpl.class);
 	private static final String SQLNAME_FIND_BY_ACCOUNT = "findByAccount";
-	private static final String SQLNAME_COUNT_BY_ACCOUNT ="countByAccount";
-	private static final String SQLNAME_FIND_FAMOUS_DOCTOR_LIST ="findFamousDoctorList";
-	private static final String SQLNAME_FIND_DOCTOR_LIST_BY_DEPT ="findDoctorListByDept";
-	private static final String SQLNAME_FIND_DOCTOR_DETAIL_BY_ID ="findDoctorDetailById";
-	private static final String SQLNAME_FIND_DOCTOR_LIST_BY_DEPT_AND_CITY ="findDoctorListByDeptAndCity";
+	private static final String SQLNAME_COUNT_BY_ACCOUNT = "countByAccount";
+	private static final String SQLNAME_FIND_FAMOUS_DOCTOR_LIST = "findFamousDoctorList";
+	private static final String SQLNAME_FIND_DOCTOR_LIST_BY_DEPT = "findDoctorListByDept";
+	private static final String SQLNAME_FIND_DOCTOR_DETAIL_BY_ID = "findDoctorDetailById";
+	private static final String SQLNAME_FIND_DOCTOR_LIST_BY_DEPT_AND_CITY = "findDoctorListByDeptAndCity";
 
 	@Override
 	public List<DoctorsParamsVo> findDoctorListByDeptAndCity(Map<String, String> params) {
 		try {
-			return sqlSession.selectList(getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT_AND_CITY),params);
+			return sqlSession.selectList(getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT_AND_CITY), params);
 		} catch (Exception e) {
 			logger.error(String.format("根据科室ID和CityCoce查询医生列表出错！语句：%s", getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT_AND_CITY)), e);
 			throw new SystemException(String.format("根据科室ID和CityCoce查询医生列表出错！语句：%s", getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT_AND_CITY)), e);
 		}
 	}
-	
-	
+
 	@Override
 	public DoctorsParamsVo findDoctorDetailById(String doctorId) {
 		try {
-			return sqlSession.selectOne(getSqlName(SQLNAME_FIND_DOCTOR_DETAIL_BY_ID),doctorId);
+			return sqlSession.selectOne(getSqlName(SQLNAME_FIND_DOCTOR_DETAIL_BY_ID), doctorId);
 		} catch (Exception e) {
 			logger.error(String.format("根据id查询医生详情！语句：%s", getSqlName(SQLNAME_FIND_DOCTOR_DETAIL_BY_ID)), e);
 			throw new SystemException(String.format("根据id查询医生详情出错！语句：%s", getSqlName(SQLNAME_FIND_DOCTOR_DETAIL_BY_ID)), e);
 		}
 	}
 
-	
-
 	@Override
 	public List<DoctorsParamsVo> findDoctorListByDept(String deptId) {
 		try {
-			return sqlSession.selectList(getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT),deptId);
+			return sqlSession.selectList(getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT), deptId);
 		} catch (Exception e) {
 			logger.error(String.format("根据科室查询医生出错！语句：%s", getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT)), e);
 			throw new SystemException(String.format("根据科室查询医生查询出错！语句：%s", getSqlName(SQLNAME_FIND_DOCTOR_LIST_BY_DEPT)), e);
 		}
 	}
 
-	
 	@Override
 	public List<DoctorsParamsVo> findFamousDoctorList() {
 		try {
@@ -98,9 +90,7 @@ public class DoctorUserDaoImpl extends BaseDaoImpl<DoctorUser, String>implements
 			throw new SystemException(String.format("根据账号电话号码查询用户出错！语句：%s", getSqlName(SQLNAME_FIND_FAMOUS_DOCTOR_LIST)), e);
 		}
 	}
-	
-	
-	
+
 	@Override
 	public DoctorUser findByAccount(String account) {
 		try {

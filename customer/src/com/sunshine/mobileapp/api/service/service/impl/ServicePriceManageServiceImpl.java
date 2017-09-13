@@ -6,12 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sunshine.framework.base.dao.BaseDao;
-import com.sunshine.framework.base.service.impl.BaseServiceImpl;
+import com.sunshine.framework.mvc.mysql.dao.BaseDao;
+import com.sunshine.framework.mvc.mysql.service.impl.BaseServiceImpl;
 import com.sunshine.mobileapp.api.service.dao.ServicePriceManageDao;
 import com.sunshine.mobileapp.api.service.entity.ServicePriceManage;
 import com.sunshine.mobileapp.api.service.service.ServicePriceManageService;
-
 
 /**
  * @Project: easy_health 

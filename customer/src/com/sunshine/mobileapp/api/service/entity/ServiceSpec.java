@@ -1,7 +1,7 @@
 package com.sunshine.mobileapp.api.service.entity;
 
 import com.sunshine.common.formatter.support.FieldFormatterManager;
-import com.sunshine.framework.base.entity.BasePlatformEntity;
+import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
 
 /**
  * @Project: easy_health 
@@ -16,7 +16,7 @@ import com.sunshine.framework.base.entity.BasePlatformEntity;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public class ServiceSpec extends BasePlatformEntity {
+public class ServiceSpec extends BaseSQLEntity {
 
 	private static final long serialVersionUID = -5207332355248989813L;
 

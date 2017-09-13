@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import com.sunshine.framework.base.dao.impl.BaseDaoImpl;
 import com.sunshine.framework.exception.SystemException;
+import com.sunshine.framework.mvc.mysql.dao.impl.BaseDaoImpl;
 import com.sunshine.mobileapp.api.service.dao.ServicePriceManageDao;
 import com.sunshine.mobileapp.api.service.entity.ServicePriceManage;
 

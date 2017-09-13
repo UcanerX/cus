@@ -3,9 +3,8 @@ package com.sunshine.mobileapp.api.service.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.sunshine.framework.base.dao.BaseDao;
+import com.sunshine.framework.mvc.mysql.dao.BaseDao;
 import com.sunshine.mobileapp.api.service.entity.ServicePriceManage;
-
 
 /**
  * @Project: easy_health 

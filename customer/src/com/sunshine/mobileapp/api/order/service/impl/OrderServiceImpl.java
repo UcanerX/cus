@@ -27,7 +27,6 @@ import com.sunshine.cache.component.SysServiceCache;
 import com.sunshine.common.MessageCentorConstant;
 import com.sunshine.framework.mvc.mysql.dao.BaseDao;
 import com.sunshine.framework.mvc.mysql.service.impl.BaseServiceImpl;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
 import com.sunshine.mobileapp.api.order.dao.OrderDao;
 import com.sunshine.mobileapp.api.order.dao.OrderStatusDao;
 import com.sunshine.mobileapp.api.order.entity.Order;
@@ -35,7 +34,7 @@ import com.sunshine.mobileapp.api.order.entity.OrderStatus;
 import com.sunshine.mobileapp.api.order.service.DoctorServiceInfoService;
 import com.sunshine.mobileapp.api.order.service.OrderService;
 import com.sunshine.mobileapp.api.order.vo.OrderStatusEnum;
-
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 
@@ -55,13 +54,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, String> implements 
 
 	@Autowired
 	protected OrderDao orderDao;
-	
-	@Autowired 
+
+	@Autowired
 	private OrderStatusDao orderStatusDao;
-	
+
 	@Autowired
 	private DoctorServiceInfoService doctorServiceInfoService;
-	
+
 	@Autowired
 	private SysServiceCache sysServiceCache;
 
@@ -69,120 +68,116 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, String> implements 
 	protected BaseDao<Order, String> getDao() {
 		return orderDao;
 	}
-	
+
 	@Override
 	public String insert(Order order) {
 		String orderId = orderDao.insert(order);
 		//插入订单状态
-		OrderStatus orderStatus = new OrderStatus(orderId,OrderStatusEnum.UNRECEIVE.getOrderStatus(),
-				OrderStatusEnum.UNRECEIVE.getOrderStatusLabel(),new Date());
+		OrderStatus orderStatus =
+				new OrderStatus(orderId, OrderStatusEnum.UNRECEIVE.getOrderStatus(), OrderStatusEnum.UNRECEIVE.getOrderStatusLabel(), new Date());
 		orderStatusDao.insert(orderStatus);
-	/*	//推送消息
-		MsgPushServiceImpl  msgPush = SpringContextHolder.getBean(MsgPushServiceImpl.class);
-		msgPush.msgPush(MsgPushConstant.MSG_LIBRARY_TYPE_NOTICE, MsgPushConstant.RECEIVE_TYPE_DOCTOR, 
-				order.getServiceMsgCode(),order.getDoctorPhone(),createMsgByOrder(order));*/
+		/*	//推送消息
+			MsgPushServiceImpl  msgPush = SpringContextHolder.getBean(MsgPushServiceImpl.class);
+			msgPush.msgPush(MsgPushConstant.MSG_LIBRARY_TYPE_NOTICE, MsgPushConstant.RECEIVE_TYPE_DOCTOR, 
+					order.getServiceMsgCode(),order.getDoctorPhone(),createMsgByOrder(order));*/
 		return orderId;
 	}
-	
-	public Map<String, Serializable> createMsgByOrder(Order order){
+
+	public Map<String, Serializable> createMsgByOrder(Order order) {
 		DecimalFormat format = new DecimalFormat("0.##"); //00.#
-		Map<String, Serializable> map = new HashMap<String,Serializable>();
+		Map<String, Serializable> map = new HashMap<String, Serializable>();
 		map.put("patientName", order.getUserName());
-		map.put("patientImg","#");
-		if(MessageCentorConstant.YS_TWZX_MESSAGE_CODE.equals(order.getServiceMsgCode())){
-			String orderDesc= order.getOrderDesc();
-			if(orderDesc != null && orderDesc.length()>20){
+		map.put("patientImg", "#");
+		if (MessageCentorConstant.YS_TWZX_MESSAGE_CODE.equals(order.getServiceMsgCode())) {
+			String orderDesc = order.getOrderDesc();
+			if (orderDesc != null && orderDesc.length() > 20) {
 				map.put("descript", orderDesc.substring(0, 20));
-			}else{
+			} else {
 				map.put("descript", order.getOrderDesc());
 			}
 		}
-		if(MessageCentorConstant.YS_DHZX_MESSAGE_CODE .equals(order.getServiceMsgCode())){
-			map.put("buyTime",order.getBuyTime());
+		if (MessageCentorConstant.YS_DHZX_MESSAGE_CODE.equals(order.getServiceMsgCode())) {
+			map.put("buyTime", order.getBuyTime());
 		}
-		
+
 		map.put("inquiryTime", order.getAppointmentDateTime());
-		map.put("totalAmount",format.format(order.getOrderFee()));
-		map.put("orderId",order.getId());
-		map.put("msgCategory",MessageCentorConstant.SERVICE_MESSAGE);//服务消息
-		
+		map.put("totalAmount", format.format(order.getOrderFee()));
+		map.put("orderId", order.getId());
+		map.put("msgCategory", MessageCentorConstant.SERVICE_MESSAGE);//服务消息
+
 		return map;
 	}
 
-
 	@Override
-	public  PageInfo<String>  findTransDoc(Map<String, Object> params, Page<String> page) {
-		return orderDao.findTransDoc(params,page);
+	public PageInfo<String> findTransDoc(Map<String, Object> params, Page<String> page) {
+		return orderDao.findTransDoc(params, page);
 	}
-	
-	public List<Map<String,Object>>  findDocInfo(List<String> params){
+
+	public List<Map<String, Object>> findDocInfo(List<String> params) {
 		return orderDao.findDocInfo(params);
 	}
-	
-	public String insertTransTreatment(Map<String,Object> param, Order newOrder){
+
+	public String insertTransTreatment(Map<String, Object> param, Order newOrder) {
 		//更新原来的订单状态
-	//	orderDao.updateByParams(param);
+		//	orderDao.updateByParams(param);
 		orderDao.insert(newOrder);
 		return newOrder.getOrderNo();
 	}
-
 
 	@Override
 	public int countWaitDeal(String doctorId) {
 		return orderDao.countWaitDeal(doctorId);
 	}
 
-
 	@Override
 	public int countService(String doctorId) {
 		return orderDao.countService(doctorId);
 	}
-	
+
 	@Override
 	public int countOver(String doctorId) {
 		return orderDao.countOver(doctorId);
 	}
 
 	@Override
-	public int updateOrderStatus(String orderId,Integer orderStatus,Integer oldOrderStatus, String doctorId, String serviceId){
-		Map<String, Object> params = new HashMap<String,Object>();
+	public int updateOrderStatus(String orderId, Integer orderStatus, Integer oldOrderStatus, String doctorId, String serviceId) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", orderId);
-		params.put("orderStatus",orderStatus);
-		params.put("oldOrderStatus",oldOrderStatus);
-		params.put("doctorId",doctorId);
+		params.put("orderStatus", orderStatus);
+		params.put("oldOrderStatus", oldOrderStatus);
+		params.put("doctorId", doctorId);
 		params.put("et", new Date());
 		// 加入服务类型作为控制参数，图文订单和电话订单 接单和拒诊 SQL逻辑不通 by gansong 
 		params.put("serviceType", sysServiceCache.getConsultServiceType(serviceId));
 		// end
 		int row = orderDao.updateOrderSatus(params);
-		if(row > 0){
-			OrderStatus status = new OrderStatus(orderId,orderStatus,new Date());
+		if (row > 0) {
+			OrderStatus status = new OrderStatus(orderId, orderStatus, new Date());
 			orderStatusDao.insert(status);
 		}
 		return row;
 	}
-	
-	
-/*	public void  updateOrderStatus(String orderId,String doctorId,OrderStatusEnum orderStatusEnum){
-		Map<String, Object> params = new HashMap<String,Object>();
-		params.put("conditionDoctorId", doctorId);
-		params.put("id", orderId);
-		params.put("orderStatus",orderStatusEnum.getOrderStatus());
-		params.put("et", new Date());
-		orderDao.updateByParams(params);
-		
-		OrderStatus orderStatus = new OrderStatus(orderId,
-		orderStatusEnum.getOrderStatus(),
-		orderStatusEnum.getOrderStatusLabel(),new Date());
-		orderStatusDao.insert(orderStatus);
-	}*/
+
+	/*	public void  updateOrderStatus(String orderId,String doctorId,OrderStatusEnum orderStatusEnum){
+			Map<String, Object> params = new HashMap<String,Object>();
+			params.put("conditionDoctorId", doctorId);
+			params.put("id", orderId);
+			params.put("orderStatus",orderStatusEnum.getOrderStatus());
+			params.put("et", new Date());
+			orderDao.updateByParams(params);
+			
+			OrderStatus orderStatus = new OrderStatus(orderId,
+			orderStatusEnum.getOrderStatus(),
+			orderStatusEnum.getOrderStatusLabel(),new Date());
+			orderStatusDao.insert(orderStatus);
+		}*/
 
 	public Order generateOrder(Order unsavedOrder) {
 		unsavedOrder = new Order();
-		
+
 		String doctorId = "f2aa86e50fc545bdb0a5b600b3a868c2";
 		List<DoctorServiceInfo> enabledDoctorServSettings = doctorServiceInfoService.getServiceListByUserId(doctorId);
-		
+
 		if (enabledDoctorServSettings != null) {
 			DoctorServiceInfo setting = enabledDoctorServSettings.get(0);
 			String availableTimeStr = setting.getStMon();
@@ -193,8 +188,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, String> implements 
 				}
 			}
 		}
-//		unsavedOrder.setOrderNo(OrderNoGenerator.genOrderNo(1, 1, 1));
-		
+		//		unsavedOrder.setOrderNo(OrderNoGenerator.genOrderNo(1, 1, 1));
+
 		return null;
 	}
+
 }

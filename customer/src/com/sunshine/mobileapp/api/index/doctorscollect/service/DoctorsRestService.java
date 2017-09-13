@@ -10,8 +10,6 @@
  */
 package com.sunshine.mobileapp.api.index.doctorscollect.service;
 
-import java.util.Map;
-
 import com.sunshine.mobileapp.api.RestResponse;
 import com.sunshine.mobileapp.api.index.doctorscollect.vo.PageParamsVo;
 /**
@@ -36,8 +34,14 @@ public interface DoctorsRestService {
 	 */
 	public RestResponse findFamousDoctorListPost(PageParamsVo pageParamsVo);
 	
-	
-	public RestResponse findDoctorListByDept(String deptId);
+	/**
+	 * 根据科室id查询符合条件的医生
+	 * @param deptId 一级科室
+	 * @param pageNum 页码
+	 * @param pageSize 页大小
+	 * @return
+	 */
+	public RestResponse findDoctorListByDept(String deptId,String pageNum,String pageSize);
   
 	/**
 	 * 医生首页详情
@@ -46,9 +50,12 @@ public interface DoctorsRestService {
 	public RestResponse doctorHomePageDetail(String doctorId);
 	
 	/**
-	 * 根据部门和城市查询医生列表
-	 * @param params
+	 * 根据科室和城市查询医生列表
+	 * @param deptId 科室id
+	 * @param cityCode 城市code
+	 * @param pageNum 页码
+	 * @param pageSize 页大小
 	 * @return
 	 */
-	public RestResponse findDoctorListByDeptAndCity(String deptId, String cityCode);
+	public RestResponse findDoctorListByDeptAndCity(String deptId, String cityCode,String pageNum,String pageSize);
 }

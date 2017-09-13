@@ -72,6 +72,10 @@
     <bean id="doctorAvailableTimeConfigCache" class="com.sunshine.cache.component.DoctorAvailableTimeConfigCache" />    
     <!--  医生剩余预约时间缓存 -->
     <bean id="doctorAvailableAppointmentTimeCache" class="com.sunshine.cache.component.DoctorAvailableAppointmentTimeCache" />   
+	<!-- 问诊人临时缓存  -->
+	<bean id="inquireUserCache" class="com.sunshine.cache.component.InquireUserCache" />  
 
     <bean id="patientOrderCountCache" class="com.sunshine.cache.component.PatientOrderCountCache" />  
+  	
+  	<bean id="doctorOrderCountCache" class="com.sunshine.cache.component.DoctorOrderCountCache" />
 </beans>	

@@ -1,17 +1,15 @@
 package com.sunshine.mobileapp.api.service.service.impl;
 
-
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sunshine.framework.base.dao.BaseDao;
-import com.sunshine.framework.base.service.impl.BaseServiceImpl;
+import com.sunshine.framework.mvc.mysql.dao.BaseDao;
+import com.sunshine.framework.mvc.mysql.service.impl.BaseServiceImpl;
 import com.sunshine.mobileapp.api.service.dao.ServiceSpecDao;
 import com.sunshine.mobileapp.api.service.entity.ServiceSpec;
 import com.sunshine.mobileapp.api.service.service.ServiceSpecService;
-
 
 /**
  * @Project: easy_health 
@@ -31,11 +29,12 @@ public class ServiceSpecServiceImpl extends BaseServiceImpl<ServiceSpec, String>
 
 	@Autowired
 	private ServiceSpecDao serviceSpecDao;
-	
+
 	@Override
 	protected BaseDao<ServiceSpec, String> getDao() {
 		return serviceSpecDao;
 	}
+
 	@Override
 	public void batchUpdateStatus(Map<String, Object> map) {
 		serviceSpecDao.batchUpdateStatus(map);

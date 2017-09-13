@@ -14,8 +14,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sunshine.common.utils.WeekDay;
 import com.sunshine.framework.utils.DateUtils;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
 import com.sunshine.mobileapp.api.order.planning.AvailableTime;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 

@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.sunshine.cache.CacheConstant;
 import com.sunshine.framework.cache.redis.RedisService;
 import com.sunshine.framework.common.spring.ext.SpringContextHolder;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 

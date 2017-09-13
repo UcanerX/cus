@@ -10,7 +10,7 @@
  */
 package com.sunshine.mobileapp.api.order.dao;
 
-import com.sunshine.framework.mvc.mysql.dao.BaseDao;
+import com.sunshine.common.dao.ExpandBaseDao;
 import com.sunshine.mobileapp.api.order.entity.OrderStatus;
 
 /**
@@ -26,6 +26,6 @@ import com.sunshine.mobileapp.api.order.entity.OrderStatus;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public interface OrderStatusDao  extends BaseDao<OrderStatus, String>{
+public interface OrderStatusDao extends ExpandBaseDao<OrderStatus, String> {
 
 }

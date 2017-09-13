@@ -10,7 +10,6 @@
  */
 package com.sunshine.mobileapp.api.index.doctorscollect.vo;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -33,42 +32,34 @@ import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DoctorsParamsVo<T> extends BaseSQLEntity implements Serializable {
-	
-	private static final long serialVersionUID = 6742541571584470842L;
-	
-	private Object obj;
-	
-	public Object getObj() {
-		return obj;
-	}
+public class DoctorsParamsVo extends BaseSQLEntity {
 
-	public void setObj(Object obj) {
-		this.obj = obj;
-	}
+	private static final long serialVersionUID = 6742541571584470842L;
+
+	private Object serviceList;
 
 	/**
 	 * pageList数据
 	 */
-	private List<T> pageList;
-	
+	private List pageList;
+
 	/**
 	 * 总记录数
 	 */
 	private Long totalRows;
 
 	/*医生头像、医生姓名、医生科室、医生等级、医生所在执业医院、医生开通的咨询标签、擅长、价格；*/
-	
+
 	/**
 	 * 用户ID
 	 */
 	private String id;
-	
+
 	/**
 	 * 医生头像
 	 */
 	private String userImg;
-	
+
 	/**
 	 * 医生姓名
 	 */
@@ -136,7 +127,7 @@ public class DoctorsParamsVo<T> extends BaseSQLEntity implements Serializable {
 	 * 执业经历
 	 */
 	private String workExperience;
-	
+
 	/**
 	 * 医学背景 履历
 	 */
@@ -146,7 +137,6 @@ public class DoctorsParamsVo<T> extends BaseSQLEntity implements Serializable {
 	 * 价格  最低
 	 */
 	private String price;
-	
 
 	public String getId() {
 		return id;
@@ -156,13 +146,11 @@ public class DoctorsParamsVo<T> extends BaseSQLEntity implements Serializable {
 		this.id = id;
 	}
 
-
-
-	public List<T> getPageList() {
+	public List getPageList() {
 		return pageList;
 	}
 
-	public void setPageList(List<T> pageList) {
+	public void setPageList(List pageList) {
 		this.pageList = pageList;
 	}
 
@@ -313,5 +301,13 @@ public class DoctorsParamsVo<T> extends BaseSQLEntity implements Serializable {
 	public DoctorsParamsVo() {
 		super();
 	}
-	
+
+	public Object getServiceList() {
+		return serviceList;
+	}
+
+	public void setServiceList(Object serviceList) {
+		this.serviceList = serviceList;
+	}
+
 }

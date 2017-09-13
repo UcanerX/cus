@@ -28,24 +28,25 @@ import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public class OrderStatus extends BaseSQLEntity{
+public class OrderStatus extends BaseSQLEntity {
 	private static final long serialVersionUID = 4874034686123585881L;
 	private String orderId;
 	private Integer status;
 	private String statusLabel;
 	private Date changeTime;
-	
-    private String isDoctorShow;
-	
-	public OrderStatus(){}
-	
-	public OrderStatus(String orderId, int status, Date changeTime){
+
+	private Integer doctorShow = 1;
+
+	public OrderStatus() {
+	}
+
+	public OrderStatus(String orderId, int status, Date changeTime) {
 		super();
 		this.orderId = orderId;
 		this.status = status;
 		this.changeTime = changeTime;
 	}
-	
+
 	public OrderStatus(String orderId, int status, String statusLabel, Date changeTime) {
 		super();
 		this.orderId = orderId;
@@ -53,31 +54,50 @@ public class OrderStatus extends BaseSQLEntity{
 		this.statusLabel = statusLabel;
 		this.changeTime = changeTime;
 	}
-	
+
 	public String getOrderId() {
 		return orderId;
 	}
+
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
+
 	public int getStatus() {
 		return status;
 	}
+
 	public void setStatus(int status) {
-		this.statusLabel=DictonaryBean.getOrderStatusDic().get(status);
+		this.statusLabel = DictonaryBean.getOrderStatusDic().get(status);
 		this.status = status;
 	}
+
 	public Date getChangeTime() {
 		return changeTime;
 	}
+
 	public void setChangeTime(Date changeTime) {
 		this.changeTime = changeTime;
 	}
+
 	public String getStatusLabel() {
 		return statusLabel;
 	}
+
 	public void setStatusLabel(String statusLabel) {
 		this.statusLabel = statusLabel;
 	}
-    
+
+	public Integer getDoctorShow() {
+		return doctorShow;
+	}
+
+	public void setDoctorShow(Integer doctorShow) {
+		this.doctorShow = doctorShow;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 }

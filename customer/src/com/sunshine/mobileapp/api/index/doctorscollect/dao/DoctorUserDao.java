@@ -29,21 +29,19 @@ import com.sunshine.mobileapp.api.index.doctorscollect.vo.DoctorsParamsVo;
 * @version    V1.0
  */
 public interface DoctorUserDao extends BaseDao<DoctorUser, String> {
-	
-	
+
 	/**
 	 * @return 查询名医列表
 	 */
-	public List<DoctorsParamsVo>  findFamousDoctorList();
-	
+	public List<DoctorsParamsVo> findFamousDoctorList();
+
 	/**
 	 * 根据科室id查询医生列表数据
 	 * @param deptId 科室id
 	 * @return  对应科室的医生
 	 */
 	public List<DoctorsParamsVo> findDoctorListByDept(String deptId);
-	
-	
+
 	/**
 	 * 根据城市Code筛选医生列表
 	 * @param deptId 科室id
@@ -51,15 +49,11 @@ public interface DoctorUserDao extends BaseDao<DoctorUser, String> {
 	 * @return List<DoctorsParamsVo> 符合城市条件的 对应科室的 医生列表
 	 */
 	public List<DoctorsParamsVo> findDoctorListByDeptAndCity(Map<String, String> params);
-	
-	
-	
+
 	public DoctorUser findByAccount(String account);
 
-	
 	public int countByAccount(String account);
 
-	
 	public DoctorsParamsVo findDoctorDetailById(String doctorId);
 
 }

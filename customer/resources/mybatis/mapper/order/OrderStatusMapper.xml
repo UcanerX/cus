@@ -6,10 +6,12 @@
 	<result column="ORDER_ID" property="orderId" />
 	<result column="STATUS" property="status" />
 	<result column="CHANGE_TIME" property="changeTime" />
+	<result column="DOCTOR_SHOW" property="doctorShow" />
+	
 	
 </resultMap>
   <sql id="Base_Column_List" >
-    ID,ORDER_ID,STATUS,CHANGE_TIME,
+    ID,ORDER_ID,STATUS,CHANGE_TIME,DOCTOR_SHOW
   </sql>
   
   <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -26,7 +28,7 @@
   
    <insert id="insert" parameterType="com.sunshine.mobileapp.api.order.entity.OrderStatus" >
     insert into BIZ_ORDER_STATE_CHANGE (<include refid="Base_Column_List" />)
-     values (#{id},#{orderId},#{status},#{changeTime})
+     values (#{id},#{orderId},#{status},#{changeTime},#{doctorShow})
    </insert>
    
    <update id="update" parameterType="com.sunshine.mobileapp.api.order.entity.OrderStatus" >
@@ -46,17 +48,17 @@
     </update>
     
     <select id="findListByParams" parameterType="map" resultMap="BaseResultMap">
-    	select 
+    	SELECT 
     	<include refid="Base_Column_List" />
-    	from BIZ_ORDER_STATE_CHANGE
+    	FROM BIZ_ORDER_STATE_CHANGE
     	<where>
 	    	<if test="orderId !=null and orderId !=''" >
 	   			 AND ORDER_ID = #{orderId}
 			</if>
-			<if test="">
-			     AND 
+			<if test="doctorShow != null">
+			     AND DOCTOR_SHOW = #{doctorShow}
 			</if>
     	</where>
-    	order by CHANGE_TIME 
+    	ORDER BY CHANGE_TIME 
     </select>
 </mapper>

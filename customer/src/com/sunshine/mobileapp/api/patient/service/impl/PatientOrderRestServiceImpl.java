@@ -16,7 +16,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -26,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 import com.sunshine.cache.component.DoctorAvailableAppointmentTimeCache;
+import com.sunshine.cache.component.InquireUserCache;
 import com.sunshine.cache.component.SysServiceCache;
 import com.sunshine.cache.component.UserAliasNameCache;
 import com.sunshine.common.GlobalConstant;
@@ -43,8 +47,10 @@ import com.sunshine.mobileapp.api.order.service.PatientOrderService;
 import com.sunshine.mobileapp.api.order.vo.OrderStatusEnum;
 import com.sunshine.mobileapp.api.patient.dao.InquireUserDao;
 import com.sunshine.mobileapp.api.patient.dao.PatientUserDao;
+import com.sunshine.mobileapp.api.patient.entity.InquireUser;
 import com.sunshine.mobileapp.api.patient.entity.PatientUser;
 import com.sunshine.mobileapp.api.patient.service.PatientOrderRestService;
+import com.sunshine.mobileapp.api.patient.vo.PatientOrderParamsVo;
 
 /**
 * @Package：com.sunshine.mobileapp.api.patient.service.impl   
@@ -66,10 +72,7 @@ public class PatientOrderRestServiceImpl implements PatientOrderRestService{
 	
 	@Autowired
 	private PatientOrderService orderService;
-	
-	/*@Autowired
-	private PatientOrderDao orderDao;*/
-	
+
 	@Autowired
 	private InquireUserDao inquireUserDao;
 
@@ -87,13 +90,70 @@ public class PatientOrderRestServiceImpl implements PatientOrderRestService{
 	
 	@Autowired
 	private SysServiceCache sysServiceCache;
+	
+	@Autowired
+	private InquireUserCache inquireUserCache;
 
+	@POST
+	@Path("generateOrder")
 	@Override
-	public RestResponse generateOrder(String account, String doctor,
-			String serviceId, String serviceName, String appointmentDate,
-			String appointmentTime, Integer buyTime, String imageKeys) {
+	public RestResponse generateOrder(PatientOrderParamsVo vo) {
+		System.out.println("vo入参:"+com.alibaba.fastjson.JSONArray.toJSONString(vo));
+		RestResponse response = new RestResponse();
+		String account ="15612344321";
+		String doctor ="15871371959";
+		String serviceId="0cf405818513477a82f09f69c70195c9";
+		String serviceName="图文咨询";
+		String appointmentDate="2017-09-15";
+		String appointmentTime="10:30-10:32";
+		Integer buyTime=10; 
+		String imageKeys="http://www.sun309.com/Uploads/banner/20151105/563b50ffc1b64.png";
+		String orderDesc ="THIS IS ORDER DESC.   ---EASY.HEALTH";
+		String doctorImg = "http://www.easyhealth.com/doctor.png";
+		PatientUser patientUser = patientUserDao.findByAccount(account);
 		
-		RestResponse response = null;
+		//----------------缓存临时数据-------------------------------
+		InquireUser inquireUser = new InquireUser();
+		inquireUser.setAge(vo.getInquireAge()==null?22:vo.getInquireAge());
+		inquireUser.setName(vo.getInquireName()==null?"张三":vo.getInquireName());
+		inquireUser.setSex(vo.getInquireSex()==null?1:vo.getInquireSex());
+		inquireUserCache.addInquireUserTempCache(patientUser.getId(), inquireUser);
+		//------------------------------------------------
+		return response;
+	}
+	
+	
+	@GET
+	@Path("findRestTime/{phone:.*}")
+	@Override
+	public RestResponse findRestTime(@PathParam("phone") String phone) {
+		RestResponse response = new RestResponse();
+		String appointmentDate="2017-09-15";
+		DoctorUser doctorUser = doctorUserDao.findByAccount(phone);
+		List<AvailableTime> timeList = null;
+		if (doctorUser != null ) {
+			timeList = doctorAvailableAppointmentTimeCache.getAvailableAppointmentTime(DateUtils.StringToDate(appointmentDate), doctorUser.getId());
+		}
+		response.setData(timeList);
+		return response;
+	}
+	
+	@GET
+	@Path("testOrder/{test:.*}")
+	@Override
+	public RestResponse testOrder(@PathParam("test") String test) {
+		System.out.println("************:"+test+":**************");
+		String account ="15612344321";
+		String doctor ="15871371959";
+		String serviceId="0cf405818513477a82f09f69c70195c9";
+		String serviceName="图文咨询";
+		String appointmentDate="2017-09-15";
+		String appointmentTime="10:30-10:32";
+		Integer buyTime=10; 
+		String imageKeys="http://www.sun309.com/Uploads/banner/20151105/563b50ffc1b64.png";
+		String orderDesc ="THIS IS ORDER DESC.   ---EASY.HEALTH";
+		String doctorImg = "http://www.easyhealth.com/doctor.png";
+		RestResponse response = new RestResponse();
 		List<String> testUserSet = new ArrayList<String>();
 		testUserSet.add("陆晓文");
 		testUserSet.add("程前");
@@ -174,7 +234,8 @@ public class PatientOrderRestServiceImpl implements PatientOrderRestService{
 			order.setAreaCode("440106");
 			order.setAreaName("天河区");
 			order.setImageUrls(imageKeys);
-			
+			order.setOrderDesc(orderDesc);
+			order.setDoctorImg(doctorImg);
 			order = orderService.generateOrder(order, appointmentDate, appointmentTime);
 			
 			//resp = new RestResponse(Status.OK, "生成订单成功");
@@ -183,15 +244,18 @@ public class PatientOrderRestServiceImpl implements PatientOrderRestService{
 //			msgPushService.captchaPush(order.getDoctorPhone(), smsMsg);
 			
 		} catch(IllegalDateException e) {
-			response = new RestResponse(RestStatusEnum.ERROR, e.getMessage());
+			response.setStatus(RestStatusEnum.ERROR);
+			response.setMsg(e.getMessage());
 			if (e.getCode() != -1) {
 				logger.error("生成订单发生异常", e);
 			}
 		} catch(OrderException e) {
-			response = new RestResponse(RestStatusEnum.ERROR, e.getMessage());
+			response.setStatus(RestStatusEnum.ERROR);
+			response.setMsg(e.getMessage());
 			logger.error("生成订单发生异常", e);
 		} catch(Exception e) {
-			response = new RestResponse(RestStatusEnum.ERROR, "生成订单发生异常");
+			response.setStatus(RestStatusEnum.ERROR);
+			response.setMsg(e.getMessage());
 			logger.error("生成订单发生异常", e);
 		}
 		
@@ -212,8 +276,19 @@ public class PatientOrderRestServiceImpl implements PatientOrderRestService{
 		} else {
 			leftAppointTime.append("[]");
 		}
+		response.setData(leftAppointTime);
 		response.setMsg(response.getMsg()+" "+leftAppointTime.toString());
+		response.setStatus(RestStatusEnum.OK);
 		return response;
 	}
-	
+
+
+	@Override
+	public RestResponse generateOrder(String account, String doctor,
+			String serviceId, String serviceName, String appointmentDate,
+			String appointmentTime, Integer buyTime, String imageKeys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

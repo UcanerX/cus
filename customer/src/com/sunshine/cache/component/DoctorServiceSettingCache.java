@@ -25,8 +25,9 @@ import com.sunshine.common.service.config.DoctorAvailableTimeConfig;
 import com.sunshine.common.utils.WeekDay;
 import com.sunshine.framework.cache.redis.RedisService;
 import com.sunshine.framework.common.spring.ext.SpringContextHolder;
-import com.sunshine.mobileapp.api.index.serviceinfo.dao.DoctorServiceInfoDao;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
+import com.sunshine.mobileapp.api.order.service.DoctorServiceInfoService;
+import com.sunshine.mobileapp.api.serviceinfo.dao.DoctorServiceInfoDao;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
  * @Project: easy_health 
@@ -47,10 +48,11 @@ public class DoctorServiceSettingCache {
 
 	private RedisService redisSvc = SpringContextHolder.getBean(RedisService.class);
 	
-	/*@Autowired
-	private DoctorServiceInfoService doctorServiceInfoService;*/
 	@Autowired
-	private DoctorServiceInfoDao doctorServiceInfoDao;
+	private DoctorServiceInfoService doctorServiceInfoService;
+	
+	/*@Autowired
+	private DoctorServiceInfoDao doctorServiceInfoDao;*/
 	
 	@Autowired
 	private DoctorAvailableTimeConfigCache doctorAvailableTimeConfigCache;
@@ -76,8 +78,7 @@ public class DoctorServiceSettingCache {
 	}
 
 	public void initCache() {
-		/*List<DoctorServiceInfo> enabledServiceInfoList = doctorServiceInfoService.findServiceInfoByStatus(1);*/
-		List<DoctorServiceInfo> enabledServiceInfoList = doctorServiceInfoDao.findServiceInfoByStatus(1);
+		List<DoctorServiceInfo> enabledServiceInfoList = doctorServiceInfoService.findServiceInfoByStatus(1);
 		// 加载的数据较多，可改进为懒加载或异步加载缩短应用启动时间 by 甘松
 		for (DoctorServiceInfo entity : enabledServiceInfoList) {
 			setDoctorServiceConsultSetting(entity);

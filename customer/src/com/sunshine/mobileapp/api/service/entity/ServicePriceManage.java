@@ -1,7 +1,6 @@
 package com.sunshine.mobileapp.api.service.entity;
 
-import com.sunshine.framework.base.entity.BasePlatformEntity;
-
+import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
 
 /**
  * @Project: easy_health 
@@ -16,7 +15,7 @@ import com.sunshine.framework.base.entity.BasePlatformEntity;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public class ServicePriceManage extends BasePlatformEntity{
+public class ServicePriceManage extends BaseSQLEntity {
 
 	/**
 	 * 

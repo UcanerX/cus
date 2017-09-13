@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo" >
+  <resultMap id="BaseResultMap" type="com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SERVICE_ID" property="serviceId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="PRICE_ID" property="priceId" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="FLOAT" />
+    <result column="LEAST_BUY_TIME" property="leastBuyTime" jdbcType="INTEGER" />
+    <result column="ST_MON" property="stMon" jdbcType="VARCHAR" />
+    <result column="ST_TUE" property="stTue" jdbcType="VARCHAR" />
+    <result column="ST_WED" property="stWed" jdbcType="VARCHAR" />
+    <result column="ST_THU" property="stThu" jdbcType="VARCHAR" />
+    <result column="ST_FRI" property="stFri" jdbcType="VARCHAR" />
+    <result column="ST_SAT" property="stSat" jdbcType="VARCHAR" />
+    <result column="ST_SUN" property="stSun" jdbcType="VARCHAR" />
+    <result column="CT" property="ct" jdbcType="TIMESTAMP" /> 
+    <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+    <result column="SERVICE_INTRODUCE" property="serviceIntroduce" jdbcType="VARCHAR" />
+	<result column="SERVICE_LOGO" property="serviceLogo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SERVICE_ID, USER_ID, STATUS, PRICE_ID, PRICE, LEAST_BUY_TIME, ST_MON, ST_TUE, ST_WED, ST_THU, ST_FRI, 
+    ST_SAT, ST_SUN, CT
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DOCTOR_SERVICE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="findServiceInfoByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from DOCTOR_SERVICE_INFO
+    where STATUS = #{status,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DOCTOR_SERVICE_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertAll" parameterType="com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo" >
+    insert into DOCTOR_SERVICE_INFO (ID, SERVICE_ID, USER_ID,
+      STATUS, PRICE, PRICE_ID, LEAST_BUY_TIME, ST_MON,
+      ST_TUE, ST_WED, ST_THU, 
+      ST_FRI, ST_SAT, ST_SUN, 
+      CT)
+    values (#{id,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{price,jdbcType=FLOAT}, #{priceId,jdbcType=VARCHAR},
+       #{leastBuyTime,jdbcType=INTEGER}, #{stMon,jdbcType=VARCHAR}, 
+      #{stTue,jdbcType=VARCHAR}, #{stWed,jdbcType=VARCHAR}, #{stThu,jdbcType=VARCHAR}, 
+      #{stFri,jdbcType=VARCHAR}, #{stSat,jdbcType=VARCHAR}, #{stSun,jdbcType=VARCHAR}, 
+      #{ct,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insert" parameterType="com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo" >
+    insert into DOCTOR_SERVICE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="priceId != null" >
+        PRICE_ID,
+      </if>
+      <if test="leastBuyTime != null" >
+        LEAST_BUY_TIME,
+      </if>
+      <if test="stMon != null" >
+        ST_MON,
+      </if>
+      <if test="stTue != null" >
+        ST_TUE,
+      </if>
+      <if test="stWed != null" >
+        ST_WED,
+      </if>
+      <if test="stThu != null" >
+        ST_THU,
+      </if>
+      <if test="stFri != null" >
+        ST_FRI,
+      </if>
+      <if test="stSat != null" >
+        ST_SAT,
+      </if>
+      <if test="stSun != null" >
+        ST_SUN,
+      </if>
+      <if test="ct != null" >
+        CT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=FLOAT},
+      </if>
+      <if test="priceId != null" >
+        #{priceId,jdbcType=VARCHAR},
+      </if>
+      <if test="leastBuyTime != null" >
+        #{leastBuyTime,jdbcType=INTEGER},
+      </if>
+      <if test="stMon != null" >
+        #{stMon,jdbcType=VARCHAR},
+      </if>
+      <if test="stTue != null" >
+        #{stTue,jdbcType=VARCHAR},
+      </if>
+      <if test="stWed != null" >
+        #{stWed,jdbcType=VARCHAR},
+      </if>
+      <if test="stThu != null" >
+        #{stThu,jdbcType=VARCHAR},
+      </if>
+      <if test="stFri != null" >
+        #{stFri,jdbcType=VARCHAR},
+      </if>
+      <if test="stSat != null" >
+        #{stSat,jdbcType=VARCHAR},
+      </if>
+      <if test="stSun != null" >
+        #{stSun,jdbcType=VARCHAR},
+      </if>
+      <if test="ct != null" >
+        #{ct,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo" >
+    update DOCTOR_SERVICE_INFO
+    <set >
+      <if test="serviceId != null" >
+        SERVICE_ID = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=FLOAT},
+      </if>
+      <if test="priceId != null" >
+        PRICE_ID = #{priceId,jdbcType=VARCHAR},
+      </if>
+      <if test="leastBuyTime != null" >
+        LEAST_BUY_TIME = #{leastBuyTime,jdbcType=INTEGER},
+      </if>
+      <if test="stMon != null" >
+        ST_MON = #{stMon,jdbcType=VARCHAR},
+      </if>
+      <if test="stTue != null" >
+        ST_TUE = #{stTue,jdbcType=VARCHAR},
+      </if>
+      <if test="stWed != null" >
+        ST_WED = #{stWed,jdbcType=VARCHAR},
+      </if>
+      <if test="stThu != null" >
+        ST_THU = #{stThu,jdbcType=VARCHAR},
+      </if>
+      <if test="stFri != null" >
+        ST_FRI = #{stFri,jdbcType=VARCHAR},
+      </if>
+      <if test="stSat != null" >
+        ST_SAT = #{stSat,jdbcType=VARCHAR},
+      </if>
+      <if test="stSun != null" >
+        ST_SUN = #{stSun,jdbcType=VARCHAR},
+      </if>
+      <if test="ct != null" >
+        CT = #{ct,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo" >
+    update DOCTOR_SERVICE_INFO
+    set SERVICE_ID = #{serviceId,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=FLOAT},
+      PRICE_ID = #{priceId,jdbcType=VARCHAR},
+      LEAST_BUY_TIME = #{leastBuyTime,jdbcType=INTEGER},
+      ST_MON = #{stMon,jdbcType=VARCHAR},
+      ST_TUE = #{stTue,jdbcType=VARCHAR},
+      ST_WED = #{stWed,jdbcType=VARCHAR},
+      ST_THU = #{stThu,jdbcType=VARCHAR},
+      ST_FRI = #{stFri,jdbcType=VARCHAR},
+      ST_SAT = #{stSat,jdbcType=VARCHAR},
+      ST_SUN = #{stSun,jdbcType=VARCHAR},
+      CT = #{ct,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getServiceListByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ 	SELECT 
+ 	ss.ID SERVICE_ID ,
+ 	ss.SERVICE_NAME,
+ 	ss.SERVICE_INTRODUCE,
+ 	ss.SERVICE_LOGO,
+	ss.SERVICE_STATE,
+	ds.ID, ds.USER_ID, ds.STATUS, ds.PRICE_ID, ds.PRICE, ds.LEAST_BUY_TIME, 
+	ds.ST_MON, ds.ST_TUE, ds.ST_WED, ds.ST_THU, ds.ST_FRI, ds.ST_SAT, ds.ST_SUN, 
+	ds.CT
+	FROM SYS_SERVICE_INFO ss
+	LEFT JOIN DOCTOR_SERVICE_INFO ds
+		 ON ss.ID = ds.SERVICE_ID AND ds.USER_ID = #{userId}
+	WHERE ss.SERVICE_STATE = 1 AND ds.STATUS = 1
+  </select>
+  <select id="getDoctorServiceInfoByServiceIdAndUserId" parameterType="java.util.Map" resultMap="BaseResultMap"  >
+  	SELECT ds.* ,
+ 	ss.SERVICE_NAME,
+ 	ss.SERVICE_INTRODUCE,
+ 	ss.SERVICE_LOGO 
+ 	FROM DOCTOR_SERVICE_INFO ds
+	LEFT JOIN SYS_SERVICE_INFO ss
+		 ON ss.ID = ds.SERVICE_ID  WHERE ds.SERVICE_ID = #{serviceId} AND ds.USER_ID = #{userId}
+  </select>
+ 
+   <select id="getServiceListByUserIds"  resultMap="BaseResultMap"  >
+  		SELECT 
+	 	ss.ID SERVICE_ID ,
+	 	ss.SERVICE_NAME,
+	 	ss.SERVICE_INTRODUCE,
+	 	ss.SERVICE_LOGO,
+		ss.SERVICE_STATE,
+		ds.ID, ds.USER_ID, ds.STATUS, ds.PRICE_ID, ds.PRICE, ds.LEAST_BUY_TIME, 
+		ds.ST_MON, ds.ST_TUE, ds.ST_WED, ds.ST_THU, ds.ST_FRI, ds.ST_SAT, ds.ST_SUN, 
+		ds.CT
+		FROM SYS_SERVICE_INFO ss
+		LEFT JOIN DOCTOR_SERVICE_INFO ds
+			 ON ss.ID = ds.SERVICE_ID
+		WHERE ss.SERVICE_STATE = 1 AND ds.STATUS = 1  AND ds.USER_ID in
+  		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+           #{item}  
+        </foreach>
+  </select>
+</mapper>

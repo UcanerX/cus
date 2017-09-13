@@ -6,12 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sunshine.framework.base.dao.BaseDao;
-import com.sunshine.framework.base.service.impl.BaseServiceImpl;
+import com.sunshine.framework.mvc.mysql.dao.BaseDao;
+import com.sunshine.framework.mvc.mysql.service.impl.BaseServiceImpl;
 import com.sunshine.mobileapp.api.service.dao.ServiceInfoManageDao;
 import com.sunshine.mobileapp.api.service.entity.ServiceInfoManage;
 import com.sunshine.mobileapp.api.service.service.ServiceInfoManageService;
-
 
 /**
  * @Project: easy_health 
@@ -31,7 +30,7 @@ public class ServiceInfoManageServiceImpl extends BaseServiceImpl<ServiceInfoMan
 
 	@Autowired
 	private ServiceInfoManageDao serviceInfoManageDao;
-	
+
 	@Override
 	protected BaseDao<ServiceInfoManage, String> getDao() {
 		return serviceInfoManageDao;
@@ -46,15 +45,15 @@ public class ServiceInfoManageServiceImpl extends BaseServiceImpl<ServiceInfoMan
 	public String addOrUpdate(ServiceInfoManage entity, String type) {
 		return serviceInfoManageDao.addOrUpdate(entity, type);
 	}
-	
+
 	@Override
 	public ServiceInfoManage findByPkId(Map<String, Object> params) {
 		return serviceInfoManageDao.findByPkId(params);
 	}
 
 	@Override
-	public void updateServiceStatus(ServiceInfoManage entity,Map<String, Object> params) {
-		serviceInfoManageDao.updateServiceStatus(entity,params);
+	public void updateServiceStatus(ServiceInfoManage entity, Map<String, Object> params) {
+		serviceInfoManageDao.updateServiceStatus(entity, params);
 	}
 
 	@Override

@@ -12,7 +12,7 @@ package com.sunshine.mobileapp.api.order.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.sunshine.framework.mvc.mysql.dao.impl.BaseDaoImpl;
+import com.sunshine.common.dao.impl.ExpandBaseDaoImpl;
 import com.sunshine.mobileapp.api.order.dao.OrderStatusDao;
 import com.sunshine.mobileapp.api.order.entity.OrderStatus;
 
@@ -30,6 +30,6 @@ import com.sunshine.mobileapp.api.order.entity.OrderStatus;
  * @Version: 1.0
  */
 @Repository
-public class OrderStatusDaoImpl extends BaseDaoImpl<OrderStatus, String>implements OrderStatusDao{
+public class OrderStatusDaoImpl extends ExpandBaseDaoImpl<OrderStatus, String> implements OrderStatusDao {
 
 }

@@ -10,7 +10,6 @@
  */
 package com.sunshine.mobileapp.api.order.dao;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.sunshine.framework.mvc.mysql.dao.BaseDao;
 import com.sunshine.mobileapp.api.order.entity.Order;
-
 
 /**
  * @Project: easy_health 
@@ -33,55 +31,52 @@ import com.sunshine.mobileapp.api.order.entity.Order;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public interface OrderDao  extends BaseDao<Order, String>{
-	
+public interface OrderDao extends BaseDao<Order, String> {
+
 	/**
 	 * 查询列表
 	 * @param params
 	 * @return
 	 */
 	public List<Order> findListByParams(Map<String, Object> params);
-	
+
 	/**
 	 * 查询可转诊医生的id
 	 */
-	public  PageInfo<String>  findTransDoc(Map<String, Object> params, Page<String> page);
-	
+	public PageInfo<String> findTransDoc(Map<String, Object> params, Page<String> page);
+
 	/**
 	 * 查询医生的信息根据id
 	 */
-	public List<Map<String,Object>> findDocInfo(List<String> list);
-	
+	public List<Map<String, Object>> findDocInfo(List<String> list);
+
 	public int countWaitDeal(String doctorId);
-	
+
 	public int countService(String doctorId);
-	
+
 	public int countOver(String doctorId);
-	
-	
-	
+
 	/**
 	 * 将待接诊的订单更新为超时
 	 */
 	public void updateToTimeOut(String id);
 
 	public int updateOrderSatus(Map<String, Object> params);
-	
+
 	/**
 	 * 查询相对于基准时间可能过期的订单
 	 * 
 	 * @param baseTime 基准时间
 	 */
 	//public List<Order> findPossibleTimeoutOrder(Date baseTime);
-	
+
 	/**
 	 * 获取需信息提醒的订单
 	 * 
 	 * @return
 	 */
 	//public List<Order> findMsgPromptOrder();
-	
-	
+
 	/**
 	 * 更新订单状态
 	 */

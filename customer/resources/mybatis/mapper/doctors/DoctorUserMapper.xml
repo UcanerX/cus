@@ -255,6 +255,39 @@
     FROM  DOCTOR_USER u LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID=u.ID AND ua.STATUS=2  AND ua.IS_LAST=1
     where u.ID = #{id,jdbcType=VARCHAR}
   </select>
+  <!-- findDoctorListByDeptAndCity  通过科室和城市选择对应的医生 -->
+  <select id="findDoctorListByDeptAndCity" parameterType="java.util.Map" resultMap="FamousDoctorResultMap">
+  SELECT	u.ID,
+			u.SPECIALTY,
+			u.WORK_EXPERIENCE,
+			u.MEDICAL_RESUME,
+			ua.USER_NAME,
+			ua.USER_IMG,
+			ua.HOSPITAL_ID,
+			ua.HOSPITAL_NAME,
+			ua.BRANCH_ID,
+			ua.BRANCH_NAME,
+			ua.DEPT_LEVEL_ONE_ID,
+			ua.DEPT_LEVEL_ONE,
+			ua.DEPT_LEVEL_TWO_ID,
+			ua.DEPT_LEVEL_TWO,
+			ua.TITLE_ID,
+			ua.TITLE
+	FROM
+		DOCTOR_USER u ,DOCTOR_USER_APPLY ua ,SYS_HOSPITAL h
+	WHERE  ua.USER_ID = u.ID
+	AND ua. STATUS = 2
+	AND ua.IS_LAST = 1
+	AND h.`STATUS`=1
+	<if test="cityCode != null and cityCode != ''">
+		AND h.CITY_CODE = #{cityCode,jdbcType=VARCHAR}
+	</if>
+	<if test="deptId != null and deptId != ''">
+		AND ua.DEPT_LEVEL_ONE_ID = #{deptId,jdbcType=VARCHAR}
+	</if>
+  	ORDER BY ua.TITLE DESC
+  </select>
+  
   <!--  findDoctorListByDept 查询医生列表 通过部门-->
   <select id="findDoctorListByDept" parameterType="String" resultMap="FamousDoctorResultMap">
   SELECT	u.ID,
@@ -274,11 +307,12 @@
 			ua.TITLE_ID,
 			ua.TITLE
 		FROM
-			DOCTOR_USER u
-		LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID = u.ID
+			DOCTOR_USER u ,DOCTOR_USER_APPLY ua
+		WHERE  ua.USER_ID = u.ID
 		AND ua. STATUS = 2
 		AND ua.IS_LAST = 1
-        AND ua.DEPT_LEVEL_ONE_ID= #{deptId}
+     AND ua.DEPT_LEVEL_ONE_ID =  #{deptId}
+     ORDER BY ua.TITLE DESC
   </select>
   <!-- findDoctorDetailById  通过id查询医生详情 -->
   <select id="findDoctorDetailById" parameterType="String" resultMap="FamousDoctorResultMap" >
@@ -306,7 +340,7 @@
   
   <!--  findFamousDoctorList  查询名医列表数据 -->
   <select id="findFamousDoctorList" resultMap="FamousDoctorResultMap" >
-  SELECT	u.ID,
+ <!--  SELECT	u.ID,
 			u.SPECIALTY,
 			u.WORK_EXPERIENCE,
 			u.MEDICAL_RESUME,
@@ -324,9 +358,32 @@
 			ua.TITLE
 		FROM
 			DOCTOR_USER u
-		LEFT JOIN DOCTOR_USER_APPLY ua ON ua.USER_ID = u.ID
+		LEFT JOIN DOCTOR_USER_APPLY ua ON u.ID = ua.USER_ID
 		AND ua. STATUS = 2
 		AND ua.IS_LAST = 1
+		ORDER BY ua.TITLE DESC -->
+	SELECT	u.ID,
+			u.SPECIALTY,
+			u.WORK_EXPERIENCE,
+			u.MEDICAL_RESUME,
+			ua.USER_NAME,
+			ua.USER_IMG,
+			ua.HOSPITAL_ID,
+			ua.HOSPITAL_NAME,
+			ua.BRANCH_ID,
+			ua.BRANCH_NAME,
+			ua.DEPT_LEVEL_ONE_ID,
+			ua.DEPT_LEVEL_ONE,
+			ua.DEPT_LEVEL_TWO_ID,
+			ua.DEPT_LEVEL_TWO,
+			ua.TITLE_ID,
+			ua.TITLE
+	FROM
+		DOCTOR_USER u ,DOCTOR_USER_APPLY ua
+	WHERE  ua.USER_ID = u.ID
+	AND ua. STATUS = 2
+	AND ua.IS_LAST = 1
+   	 ORDER BY ua.TITLE DESC
   </select>
   
   <select id="findAll" resultMap="BaseResultMap" >

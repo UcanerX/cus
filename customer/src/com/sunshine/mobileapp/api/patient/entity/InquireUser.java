@@ -31,18 +31,35 @@ public class InquireUser extends BaseSQLEntity {
 
 	private String id;
 
-    private String patientUser;
-
+    /**
+     * 姓名
+     */
     private String name;
 
-    private Boolean sex;
+    /**
+     * 性别
+     */
+    private Integer sex;
 
-    private Date birthday;
-
+    /**
+     * 年龄
+     */
+    private Integer age;
+    
+    /**
+     * 病情描述
+     */
     private String condition;
 
+    /**
+     * 上传病例或者检查的图片
+     */
     private String conditionImg;
 
+    private String patientUser;
+    
+    private Date birthday;
+    
     private Boolean defaultUser;
 
     private Date ct;
@@ -71,15 +88,16 @@ public class InquireUser extends BaseSQLEntity {
         this.name = name == null ? null : name.trim();
     }
 
-    public Boolean getSex() {
-        return sex;
-    }
 
-    public void setSex(Boolean sex) {
-        this.sex = sex;
-    }
+    public Integer getSex() {
+		return sex;
+	}
 
-    public Date getBirthday() {
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
+	public Date getBirthday() {
         return birthday;
     }
 
@@ -87,7 +105,16 @@ public class InquireUser extends BaseSQLEntity {
         this.birthday = birthday;
     }
 
-    public String getCondition() {
+    
+    public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getCondition() {
         return condition;
     }
 

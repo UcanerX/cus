@@ -2,7 +2,7 @@ package com.sunshine.mobileapp.api.service.dao;
 
 import java.util.Map;
 
-import com.sunshine.framework.base.dao.BaseDao;
+import com.sunshine.framework.mvc.mysql.dao.BaseDao;
 import com.sunshine.mobileapp.api.service.entity.ServiceSpec;
 
 /**
@@ -18,7 +18,7 @@ import com.sunshine.mobileapp.api.service.entity.ServiceSpec;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public interface ServiceSpecDao extends BaseDao<ServiceSpec, String>{
+public interface ServiceSpecDao extends BaseDao<ServiceSpec, String> {
 	/**
 	 * 更新服务状态
 	 * @param params

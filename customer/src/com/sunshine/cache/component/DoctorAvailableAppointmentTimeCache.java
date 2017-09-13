@@ -18,9 +18,10 @@ import com.sunshine.common.utils.WeekDay;
 import com.sunshine.common.utils.WeekDayUtils;
 import com.sunshine.framework.cache.redis.RedisService;
 import com.sunshine.framework.common.spring.ext.SpringContextHolder;
-import com.sunshine.mobileapp.api.index.serviceinfo.dao.DoctorServiceInfoDao;
-import com.sunshine.mobileapp.api.index.serviceinfo.entity.DoctorServiceInfo;
 import com.sunshine.mobileapp.api.order.planning.AvailableTime;
+import com.sunshine.mobileapp.api.order.service.DoctorServiceInfoService;
+import com.sunshine.mobileapp.api.serviceinfo.dao.DoctorServiceInfoDao;
+import com.sunshine.mobileapp.api.serviceinfo.entity.DoctorServiceInfo;
 
 /**
 * @Package：com.sunshine.cache.component   
@@ -42,11 +43,11 @@ public class DoctorAvailableAppointmentTimeCache {
 	@Autowired
 	private DoctorAvailableTimeConfigCache doctorAvailableTimeConfigCache;
 	
-	/*@Autowired
-	private DoctorServiceInfoService doctorServiceInfoService;*/
-	
 	@Autowired
-	private DoctorServiceInfoDao doctorServiceInfoDao;
+	private DoctorServiceInfoService doctorServiceInfoService;
+	
+	/*@Autowired
+	private DoctorServiceInfoDao doctorServiceInfoDao;*/
 	
 	@Autowired
 	private DoctorServiceSettingCache doctorServiceSettingCache;
@@ -133,9 +134,8 @@ public class DoctorAvailableAppointmentTimeCache {
 			}
 		} else {
 			logger.info("无法从缓存获取医生排班时间配置对象, doctorId:" + doctorId);
-			//doctorServiceInfoDao
-			List<DoctorServiceInfo> doctorServiceInfoList = doctorServiceInfoDao.getServiceListByUserId(doctorId);
-			/*List<DoctorServiceInfo> doctorServiceInfoList = doctorServiceInfoService.getServiceListByUserId(doctorId);*/
+			/*List<DoctorServiceInfo> doctorServiceInfoList = doctorServiceInfoDao.getServiceListByUserId(doctorId);*/
+			List<DoctorServiceInfo> doctorServiceInfoList = doctorServiceInfoService.getServiceListByUserId(doctorId);
 			if (doctorServiceInfoList != null) {
 				for (DoctorServiceInfo s : doctorServiceInfoList) {
 					if (doctorServiceSettingCache.shouldCacheConfig(s)) {

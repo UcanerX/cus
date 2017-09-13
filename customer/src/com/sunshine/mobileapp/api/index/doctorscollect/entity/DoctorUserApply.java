@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
 
 public class DoctorUserApply extends BaseSQLEntity {
-	
+
 	private static final long serialVersionUID = 5173070045199328297L;
 	/**
 	 * 用户ID
@@ -118,7 +118,7 @@ public class DoctorUserApply extends BaseSQLEntity {
 	 * 执业经历 不入库
 	 */
 	private String workExperience;
-	
+
 	/**
 	 * 医学背景 履历  不入库
 	 */
@@ -136,20 +136,19 @@ public class DoctorUserApply extends BaseSQLEntity {
 	 * 进入认证申请的入口类型 不入库
 	 */
 	private int applyEntranceType;
-	
+
 	/**
 	 * 进入公共页面地址（用来记录返回页面） 不入库
 	 */
 	protected String headUrl;
-	
+
 	//当前用户的启停用状态  0 未知  1启用 2停用
-    private int userStatus;
-    
-    
-    private String availableService;
-    
-    private String fullAddress;
-	
+	private int userStatus;
+
+	private String availableService;
+
+	private String fullAddress;
+
 	public int getUserStatus() {
 		return userStatus;
 	}
@@ -538,7 +537,6 @@ public class DoctorUserApply extends BaseSQLEntity {
 		this.availableService = availableService;
 	}
 
-	
 	public String getFullAddress() {
 		return fullAddress;
 	}

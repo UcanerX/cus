@@ -11,6 +11,8 @@
 package com.sunshine.mobileapp.api.order.service;
 
 import com.sunshine.mobileapp.api.RestResponse;
+import com.sunshine.mobileapp.api.order.entity.Order;
+import com.sunshine.mobileapp.api.order.vo.OrderParamVo;
 
 /**
  * @Project: easy_health_client2 
@@ -26,8 +28,38 @@ import com.sunshine.mobileapp.api.RestResponse;
  * @Version: 1.0
  */
 public interface OrderRestService {
-  public RestResponse findOrder(String id);
+
+  public RestResponse findOrderByPage(OrderParamVo vo);
   
-/*  public RestResponse findUnpiadOrder(String patientId);*/
-/*  public RestResponse getOrderCount(String patientId);*/
+  public RestResponse generatorOrder(Order paramOrder);
+
+
+	/**
+	 * @param order
+	 * @return
+	 */
+	RestResponse cancle(Order order);
+	/**
+	 * @param id
+	 * @return
+	 */
+	RestResponse findOrderDetail(String id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	RestResponse findOrderStatusRecord(String id);
+
+	/**
+	 * @param vo
+	 * @return
+	 */
+	RestResponse pay(OrderParamVo vo);
+
+	/**
+	 * @param vo
+	 * @return
+	 */
+	RestResponse findServiceOrderByPage(OrderParamVo vo);
 }

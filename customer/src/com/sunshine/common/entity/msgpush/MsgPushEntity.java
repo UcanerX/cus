@@ -11,7 +11,7 @@
 package com.sunshine.common.entity.msgpush;
 
 import com.sunshine.common.vo.MessagePushParamsVo;
-import com.sunshine.framework.base.entity.BaseEntity;
+import com.sunshine.framework.mvc.mysql.entity.BaseSQLEntity;
 
 /**
  * @Package com.sunshine.common.entity.mobileapp.base
@@ -25,7 +25,7 @@ import com.sunshine.framework.base.entity.BaseEntity;
  * @modify-Why/What: 
  * @Version 1.0
  */
-public abstract class MsgPushEntity extends BaseEntity {
+public abstract class MsgPushEntity extends BaseSQLEntity {
 
 	/**
 	 * 

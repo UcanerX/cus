@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import com.sunshine.framework.base.dao.impl.BaseDaoImpl;
 import com.sunshine.framework.exception.SystemException;
+import com.sunshine.framework.mvc.mysql.dao.impl.BaseDaoImpl;
 import com.sunshine.mobileapp.api.service.dao.ServiceInfoManageDao;
 import com.sunshine.mobileapp.api.service.entity.ServiceInfoManage;
 
@@ -27,15 +27,15 @@ import com.sunshine.mobileapp.api.service.entity.ServiceInfoManage;
  * @Version: 1.0
  */
 @Repository(value = "serviceInfoManageDao")
-public class ServiceInfoManageDaoImpl extends BaseDaoImpl<ServiceInfoManage, String> implements ServiceInfoManageDao{
+public class ServiceInfoManageDaoImpl extends BaseDaoImpl<ServiceInfoManage, String> implements ServiceInfoManageDao {
 
 	private static Logger logger = LoggerFactory.getLogger(ServiceInfoManageDaoImpl.class);
-	
+
 	private final static String SQLNAME_GET_SERVICE_INFO_LIST = "getServiceInfoList";
 	private final static String SQLNAME_FIND_BY_PK_ID = "findByPkId";
 	private final static String SQLNAME_UPDATE_SERVICE_STATUS = "updateServiceStatus";
 	private final static String SQLNAME_BATCH_UPDATE_STATUS = "batchUpdateStatus";
-	
+
 	@Override
 	public List<ServiceInfoManage> getServiceInfoList() {
 		try {
@@ -61,7 +61,7 @@ public class ServiceInfoManageDaoImpl extends BaseDaoImpl<ServiceInfoManage, Str
 		}
 		return null;
 	}
-	
+
 	@Override
 	public ServiceInfoManage findByPkId(Map<String, Object> params) {
 		Assert.notNull(params);
@@ -78,7 +78,7 @@ public class ServiceInfoManageDaoImpl extends BaseDaoImpl<ServiceInfoManage, Str
 	}
 
 	@Override
-	public void updateServiceStatus(ServiceInfoManage entity,Map<String, Object> params) {
+	public void updateServiceStatus(ServiceInfoManage entity, Map<String, Object> params) {
 		Assert.notNull(entity);
 		try {
 			sqlSession.update(getSqlName(SQLNAME_UPDATE_SERVICE_STATUS), params);
@@ -97,6 +97,6 @@ public class ServiceInfoManageDaoImpl extends BaseDaoImpl<ServiceInfoManage, Str
 			logger.error(String.format("批量修改服务基础信息状态出错！语句：%s", getSqlName(SQLNAME_BATCH_UPDATE_STATUS)), e);
 			throw new SystemException(String.format("批量修改服务基础信息状态出错！语句：%s", getSqlName(SQLNAME_BATCH_UPDATE_STATUS)), e);
 		}
-		
+
 	}
 }

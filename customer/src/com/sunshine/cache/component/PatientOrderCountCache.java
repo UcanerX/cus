@@ -45,23 +45,17 @@ public class PatientOrderCountCache {
     * 待接诊
     */
    public static final String UNRECEIVE = "unreceive";
-	   
-   /**
-    * 退费
-    */
-   public static final String RETURNFEE = "returnFee" ;
    
    /**
     * 已完成
     */
-   public static final String FINISHED = "finished" ;
+   public static final String SERVICING = "servicing";
    
    public static final Map<String,String> defaultMap =new HashMap<String,String>(){
 		   {
 			   put(UNPAID,"0");
 			   put(UNRECEIVE,"0");
-			   put(RETURNFEE,"0");
-			   put(FINISHED,"0");
+			   put(SERVICING,"0");
 		   }
 	   };
    
@@ -69,21 +63,19 @@ public class PatientOrderCountCache {
 	   redisSvc.hincrBy(getCacheKey(patientId), UNPAID, increment);
    }
    
-   public void incrUNRECEIVE(String patientId ,int increment){
+   public void incrUnreceive(String patientId ,int increment){
 	   redisSvc.hincrBy(getCacheKey(patientId), UNRECEIVE, increment);
    }
    
-   public void incrRETURNFEE(String patientId ,int increment){
-	   redisSvc.hincrBy(getCacheKey(patientId), RETURNFEE, increment);
+   public void incrServicing(String patientId ,int increment){
+	   redisSvc.hincrBy(getCacheKey(patientId), SERVICING, increment);
    }
    
-   public void incrFINISHED(String patientId ,int increment){
-	   redisSvc.hincrBy(getCacheKey(patientId), FINISHED, increment);
-   }
+  
    
    public Map<String,String> getAll(String patientId){
 	   Map<String,String> map = redisSvc.hgetAll(getCacheKey(patientId));
-	   if(map.size()<4){
+	   if(map.size()<3){
 		   Iterator<String> iterator = defaultMap.keySet().iterator();
 		   while(iterator.hasNext()){
 			   String key = iterator.next();

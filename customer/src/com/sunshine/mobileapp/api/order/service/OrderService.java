@@ -31,20 +31,20 @@ import com.sunshine.mobileapp.api.order.entity.Order;
  * @Why&What is modify:
  * @Version: 1.0
  */
-public interface OrderService  extends BaseService<Order, String>{
-	public  PageInfo<String>  findTransDoc(Map<String, Object> params, Page<String> page);
-	
-	public List<Map<String,Object>>  findDocInfo(List<String> params);
-	
-	public String insertTransTreatment(Map<String,Object> param, Order newOrder);
-	
+public interface OrderService extends BaseService<Order, String> {
+	public PageInfo<String> findTransDoc(Map<String, Object> params, Page<String> page);
+
+	public List<Map<String, Object>> findDocInfo(List<String> params);
+
+	public String insertTransTreatment(Map<String, Object> param, Order newOrder);
+
 	public int countWaitDeal(String doctorId);
-	
+
 	public int countService(String doctorId);
-	
+
 	public int countOver(String doctorId);
 
-	public int updateOrderStatus(String orderId,Integer orderStatus,Integer oldOrderStatus, String doctorId, String serviceId);
+	public int updateOrderStatus(String orderId, Integer orderStatus, Integer oldOrderStatus, String doctorId, String serviceId);
 
 	public Order generateOrder(Order unsavedOrder);
 }

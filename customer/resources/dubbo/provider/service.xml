@@ -29,7 +29,10 @@
     <bean id="deptRestService" class="com.sunshine.mobileapp.api.dept.service.impl.DeptRestServiceImpl" />
 
 	<!-- serviceInfo 服务业务相关接口 -->
-	<bean id="doctorServiceInfoRestService" class="com.sunshine.mobileapp.api.index.serviceinfo.service.impl.DoctorServiceInfoRestServiceImpl" />
+	<bean id="doctorServiceInfoRestService" class="com.sunshine.mobileapp.api.serviceinfo.service.impl.DoctorServiceInfoRestServiceImpl" />
+	
+	<!-- patientOrder 下单业务相关接口 -->
+	<bean id="patientOrderRestService" class="com.sunshine.mobileapp.api.patient.service.impl.PatientOrderRestServiceImpl" />
     
     <!-- dubbo 协议、netty 传输、hessian2 序列化 -->
     <dubbo:protocol name="dubbo" server="netty" port="10001" charset="UTF-8" serialization="hessian2" />
@@ -56,5 +59,9 @@
     <dubbo:service interface="com.sunshine.mobileapp.api.dept.service.DeptRestService" ref="deptRestService"  protocol="rest" validation="true"/> 
     
     <!-- serviceInfo 服务业务相关接口 -->
-    <dubbo:service interface="com.sunshine.mobileapp.api.index.serviceinfo.service.DoctorServiceInfoRestService" ref="doctorServiceInfoRestService"  protocol="rest" validation="true"/> 
+    <dubbo:service interface="com.sunshine.mobileapp.api.serviceinfo.service.DoctorServiceInfoRestService" ref="doctorServiceInfoRestService"  protocol="rest" validation="true"/> 
+    
+    <!-- PatientOrder	下单业务相关接口 -->
+    <dubbo:service interface="com.sunshine.mobileapp.api.patient.service.PatientOrderRestService" ref="patientOrderRestService"  protocol="rest" validation="true"/> 
+    
 </beans>	

@@ -32,6 +32,7 @@ import com.sunshine.mobileapp.api.order.vo.OrderStatusEnum;
  * @Version: 1.0
  */
 public class Order extends BaseSQLEntity{
+	
 	private static final long serialVersionUID = 8045756937165691250L;
 
 	private String orderNo;
@@ -39,7 +40,7 @@ public class Order extends BaseSQLEntity{
 	 * 服务类型
 	 */
 	private String serviceId;
-	
+
 	/**
 	 * 服务名称
 	 */
@@ -49,18 +50,18 @@ public class Order extends BaseSQLEntity{
 	 * 图文消息： TEST_DHWZ
 	 * 电话咨询： TEST_DHWZ
 	 */
-    private String serviceMsgCode;
+	private String serviceMsgCode;
 	private String doctorId;
 	private String doctorName;
-	private String doctorImg ;
-	
+	private String doctorImg;
+
 	private String provinceCode;
 	private String provinceName;
 	private String cityCode;
 	private String cityName;
 	private String areaCode;
 	private String areaName;
-	
+
 	/**
 	 * 转诊订单
 	 */
@@ -72,29 +73,29 @@ public class Order extends BaseSQLEntity{
 	private Date appointmentTime;
 				   
 	private String appointmentTimeStr; 
-	private int buyTime;
+	private Integer buyTime;
 
 	private Date startTime;
 	private Date endTime;
 	private Date actualStartTime;
 	private Date actualEndTime;
-	private double price;
-	private double orderFee;
+	private Double  price;
+	private Double  orderFee;
 	private String orderDesc;
 	private String imageUrls;
 	private String doctorPhone;
 	private String userPhone;
 	private Date expireDate;
-	
+
 	/**
 	 * 平台编码
 	 */
 	private String platformCode;
-	
+
 	/**
 	 * 订单状态
 	 */
-	private int orderStatus;
+	private Integer orderStatus;
 	
 	/**
 	 * 订单预约日期时间戳
@@ -117,48 +118,133 @@ public class Order extends BaseSQLEntity{
 	 */
 	private boolean servable = false;
 
+	private String inquireId;
 
+	private String inquireName;
+	private Integer inqueireAge;
+	private Integer inquireSex;
 	
+
+	private String tradeMode;
+	private String tradeOrderNo;
+	private String refundOrderNo;
+	private Date payTime;
+	private Date refundTime;
+	private Integer payStatus;
+
+	public String getInquireName() {
+		return inquireName;
+	}
+	public void setInquireName(String inquireName) {
+		this.inquireName = inquireName;
+	}
+	public Integer getInqueireAge() {
+		return inqueireAge;
+	}
+	public void setInqueireAge(Integer inqueireAge) {
+		this.inqueireAge = inqueireAge;
+	}
+	public Integer getInquireSex() {
+		return inquireSex;
+	}
+	public void setInquireSex(Integer inquireSex) {
+		this.inquireSex = inquireSex;
+	}
 	
+	public String getInquireId() {
+		return inquireId;
+	}
+	public void setInquireId(String inquireId) {
+		this.inquireId = inquireId;
+	}
+	public String getTradeMode() {
+		return tradeMode;
+	}
+	public void setTradeMode(String tradeMode) {
+		this.tradeMode = tradeMode;
+	}
+	public String getTradeOrderNo() {
+		return tradeOrderNo;
+	}
+	public void setTradeOrderNo(String tradeOrderNo) {
+		this.tradeOrderNo = tradeOrderNo;
+	}
+	public String getRefundOrderNo() {
+		return refundOrderNo;
+	}
+	public void setRefundOrderNo(String refundOrderNo) {
+		this.refundOrderNo = refundOrderNo;
+	}
+	public Date getPayTime() {
+		return payTime;
+	}
+	public void setPayTime(Date payTime) {
+		this.payTime = payTime;
+	}
+	public Date getRefundTime() {
+		return refundTime;
+	}
+	public void setRefundTime(Date refundTime) {
+		this.refundTime = refundTime;
+	}
+	public Integer getPayStatus() {
+		return payStatus;
+	}
+	public void setPayStatus(Integer payStatus) {
+		this.payStatus = payStatus;
+	}
 	public String getServiceId() {
 		return serviceId;
 	}
+
 	public void setServiceId(String serviceId) {
 		this.serviceId = serviceId;
 	}
+
 	public String getDoctorId() {
 		return doctorId;
 	}
+
 	public void setDoctorId(String doctorId) {
 		this.doctorId = doctorId;
 	}
+
 	public String getDoctorName() {
 		return doctorName;
 	}
+
 	public void setDoctorName(String doctorName) {
 		this.doctorName = doctorName;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public int getOrderType() {
 		return orderType;
 	}
+
 	public void setOrderType(int orderType) {
 		this.orderType = orderType;
 	}
+
 	public Date getAppointmentTime() {
 		return appointmentTime;
 	}
+
 	public void setAppointmentTime(Date appointmentTime) {
 		this.appointmentTime = appointmentTime;
 		if (appointmentTime != null) {
@@ -166,75 +252,87 @@ public class Order extends BaseSQLEntity{
 			appointmentTimestamp = appointmentTime.getTime();
 		}
 	}
-	
+
 	public String getAppointmentDateLabel() {
 		return appointmentDateLabel;
 	}
 	public void setAppointmentDateLabel(String appointmentDateLabel) {
 		this.appointmentDateLabel = appointmentDateLabel;
 	}
-	public int getBuyTime() {
+	public Integer getBuyTime() {
 		return buyTime;
 	}
-	public void setBuyTime(int buyTime) {
+	public void setBuyTime(Integer buyTime) {
 		this.buyTime = buyTime;
 	}
 	
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public double getOrderFee() {
+	public Double getOrderFee() {
 		return orderFee;
 	}
-	public void setOrderFee(double orderFee) {
+	public void setOrderFee(Double orderFee) {
 		this.orderFee = orderFee;
 	}
+
 	public String getOrderDesc() {
 		return orderDesc;
 	}
+
 	public void setOrderDesc(String orderDesc) {
 		this.orderDesc = orderDesc;
 	}
+
 	public String getImageUrls() {
 		return imageUrls;
 	}
+
 	public void setImageUrls(String imageUrls) {
 		this.imageUrls = imageUrls;
 	}
+
 	public String getDoctorPhone() {
 		return doctorPhone;
 	}
+
 	public void setDoctorPhone(String doctorPhone) {
 		this.doctorPhone = doctorPhone;
 	}
+
 	public String getUserPhone() {
 		return userPhone;
 	}
+
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
+
 	public Date getExpireDate() {
 		return expireDate;
 	}
+
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
 	}
+
 	public String getPlatformCode() {
 		return platformCode;
 	}
+
 	public void setPlatformCode(String platformCode) {
-	/*	this.platformCodeLabel=FieldFormatterManager.getInstance().getDicFormatter()
-			.format(this, "platformCode",null);*/
-		this.platformCodeLabel=DictonaryBean.getPlatformCodeDic().get(platformCode);
+		/*	this.platformCodeLabel=FieldFormatterManager.getInstance().getDicFormatter()
+				.format(this, "platformCode",null);*/
+		this.platformCodeLabel = DictonaryBean.getPlatformCodeDic().get(platformCode);
 		this.platformCode = platformCode;
 	}
-	public int getOrderStatus() {
+	public Integer getOrderStatus() {
 		return orderStatus;
 	}
-	public void setOrderStatus(int orderStatus) {
+	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatusLabel=DictonaryBean.getOrderStatusDic().get(orderStatus);
 		this.orderStatus = orderStatus;
 		if (OrderStatusEnum.UNRECEIVE.getOrderStatus() == orderStatus) {
@@ -269,158 +367,212 @@ public class Order extends BaseSQLEntity{
 		}
 		return ret;
 	}
+
 	public String getProvinceCode() {
 		return provinceCode;
 	}
+
 	public void setProvinceCode(String provinceCode) {
 		this.provinceCode = provinceCode;
 	}
+
 	public String getProvinceName() {
 		return provinceName;
 	}
+
 	public void setProvinceName(String provinceName) {
 		this.provinceName = provinceName;
 	}
+
 	public String getCityCode() {
 		return cityCode;
 	}
+
 	public void setCityCode(String cityCode) {
 		this.cityCode = cityCode;
 	}
+
 	public String getCityName() {
 		return cityName;
 	}
+
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
+
 	public String getAreaCode() {
 		return areaCode;
 	}
+
 	public void setAreaCode(String areaCode) {
 		this.areaCode = areaCode;
 	}
+
 	public String getAreaName() {
 		return areaName;
 	}
+
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
+
 	public String getParentOrder() {
 		return parentOrder;
 	}
+
 	public void setParentOrder(String parentOrder) {
 		this.parentOrder = parentOrder;
 	}
 
-	
-
 	public Date getStartTime() {
 		return startTime;
 	}
+
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
+
 	public Date getEndTime() {
 		return endTime;
 	}
+
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+
 	public String getServiceName() {
 		return serviceName;
 	}
+
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
+
 	public String getPlatformCodeLabel() {
 		return platformCodeLabel;
 	}
+
 	public void setPlatformCodeLabel(String platformCodeLabel) {
 		this.platformCodeLabel = platformCodeLabel;
 	}
+
 	public String getOrderStatusLabel() {
 		return orderStatusLabel;
 	}
+
 	public void setOrderStatusLabel(String orderStatusLabel) {
 		this.orderStatusLabel = orderStatusLabel;
 	}
+
 	public String getOrderNo() {
 		return orderNo;
 	}
+
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+
 	public String getAppointmentTimeStr() {
 		return appointmentTimeStr;
 	}
+
 	public void setAppointmentTimeStr(String appointmentTimeStr) {
 		this.appointmentTimeStr = appointmentTimeStr;
 	}
+
 	public boolean getServable() {
 		return servable;
 	}
+
 	public void setServable(boolean servable) {
 		this.servable = servable;
 	}
+
 	public String getDoctorOrderStatusLabel() {
 		return doctorOrderStatusLabel;
 	}
+
 	public void setDoctorOrderStatusLabel(String doctorOrderStatusLabel) {
 		this.doctorOrderStatusLabel = doctorOrderStatusLabel;
 	}
+
 	public String getPatientOrderStatusLabel() {
 		return patientOrderStatusLabel;
 	}
+
 	public void setPatientOrderStatusLabel(String patientOrderStatusLabel) {
 		this.patientOrderStatusLabel = patientOrderStatusLabel;
 	}
+
 	public Date getActualStartTime() {
 		return actualStartTime;
 	}
+
 	public void setActualStartTime(Date actualStartTime) {
 		this.actualStartTime = actualStartTime;
 	}
+
 	public Date getActualEndTime() {
 		return actualEndTime;
 	}
+
 	public void setActualEndTime(Date actualEndTime) {
 		this.actualEndTime = actualEndTime;
 		if (actualEndTime != null) {
 			endTimestamp = actualEndTime.getTime();
 		}
 	}
+
 	public String getServiceMsgCode() {
 		return serviceMsgCode;
 	}
+
 	public void setServiceMsgCode(String serviceMsgCode) {
 		this.serviceMsgCode = serviceMsgCode;
 	}
-	
+
 	public long getEndTimestamp() {
 		return endTimestamp;
 	}
+
 	public void setEndTimestamp(long endTimestamp) {
 		this.endTimestamp = endTimestamp;
 	}
+
 	/**
 	 * 获得预约时间
 	 * @return
 	 */
-	public String getAppointmentDateTime(){
-		try{
-			if(appointmentTime!= null && startTime !=null ){
-				SimpleDateFormat dateFormate=new SimpleDateFormat("yyyy-MM-dd");
-				SimpleDateFormat timeFormate=new SimpleDateFormat("HH:mm");
-				return dateFormate.format(appointmentTime)+" "+timeFormate.format(startTime);
+	public String getAppointmentDateTime() {
+		try {
+			if (appointmentTime != null && startTime != null) {
+				SimpleDateFormat dateFormate = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat timeFormate = new SimpleDateFormat("HH:mm");
+				return dateFormate.format(appointmentTime) + " " + timeFormate.format(startTime);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 		}
 		return "";
 	}
+
 	public long getAppointmentTimestamp() {
 		return appointmentTimestamp;
 	}
+
 	public void setAppointmentTimestamp(long appointmentTimestamp) {
 		this.appointmentTimestamp = appointmentTimestamp;
+	}
+	
+	public String getDoctorImg() {
+		return doctorImg;
+	}
+	public void setDoctorImg(String doctorImg) {
+		this.doctorImg = doctorImg;
+	}
+	public String getUserImg() {
+		return userImg;
+	}
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
 	}
 }

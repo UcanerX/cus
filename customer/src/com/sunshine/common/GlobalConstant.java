@@ -78,9 +78,13 @@ public class GlobalConstant {
 
 	public static final int SERVICE_TYPE_TEXT_IMAGE = 0;
 
-	public static final String EH_COMMON_ORDER_SERIAL_NUMBER = null;
+	/************************ 订单流水号缓存类型key start **************************/
 
-	public static final String EH_MEDICARE_ORDER_SERIAL_NUMBER = null;
+	public static final String EH_COMMON_ORDER_SERIAL_NUMBER = "easyhealth_common_order_serial_number";
+
+	public static final String EH_MEDICARE_ORDER_SERIAL_NUMBER = "easyhealth_medicare_order_serial_number";
+	
+	/************************ 订单流水号缓存类型key end **************************/
 
 	/**
 	 * @Description 获取服务端版本号
