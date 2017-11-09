@@ -1,0 +1,1 @@
+loginInterceptor=com.ucaner.framework.cache.dubbo.Interceptor.LoginInterceptor
